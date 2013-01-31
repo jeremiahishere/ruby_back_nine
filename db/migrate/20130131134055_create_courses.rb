@@ -2,6 +2,7 @@ class CreateCourses < ActiveRecord::Migration
   def change
     create_table :courses do |t|
       t.string :name
+      t.text :description
       t.datetime :start_at
       t.datetime :end_at
         

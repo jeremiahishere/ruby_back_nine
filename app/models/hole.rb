@@ -1,8 +1,8 @@
 class Hole < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User'
   belongs_to :course
-  has_many :cases, :class_name => 'TestCase'
-  has_many :solutions
+  has_many :cases, :class_name => 'TestCase', :dependent => :destroy
+  has_many :solutions, :dependent => :destroy
   
   validates_presence_of :name 
   validates_presence_of :maximum_execution_time

@@ -1,0 +1,23 @@
+%h1 Listing Courses
+
+= paginate @courses
+%table
+  %tr
+    %th Name
+    %th Description
+    %th Holes
+    %th
+    %th
+    %th
+  - if @courses.empty?
+    %tr{:colspan => 6 }
+      %td There are no courses in the system
+  - else
+    - @courses.each do |course}
+      %tr
+        %td= course.name
+        %td= course.description
+        %td= course.holes.count
+        %td= link_to("Show", admin_course_path(course))
+        %td= link_to("Edit", edit_admin_course_path(course))
+        %td= link_to("Destroy", admin_course_path(course), :method => :delete)

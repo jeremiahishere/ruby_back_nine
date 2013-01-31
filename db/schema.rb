@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(:version => 20130131151843) do
 
   create_table "courses", :force => true do |t|
     t.string   "name"
+    t.text     "description"
     t.datetime "start_at"
     t.datetime "end_at"
     t.datetime "created_at"
@@ -25,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20130131151843) do
     t.integer  "course_id"
     t.string   "name"
     t.string   "description"
-    t.integer  "difficulty"
+    t.integer  "par"
     t.integer  "maximum_execution_time"
     t.text     "sample_setup"
     t.string   "sample_solution"

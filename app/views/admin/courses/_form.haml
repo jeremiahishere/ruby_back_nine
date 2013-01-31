@@ -1,0 +1,11 @@
+= semantic_form_for(@course) do |form|
+  = form.semantic_errors
+
+  = form.inputs do
+    = form.input :name
+    = form.input :description
+    = form.input :start_at
+    = form.input :end_at
+
+  = form.buttons do
+    = form.commit_button
