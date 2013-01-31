@@ -1,5 +1,7 @@
 %h1 Listing Courses
 
+= link_to("New Course", new_admin_course_path)
+
 = paginate @courses
 %table
   %tr
@@ -13,11 +15,11 @@
     %tr{:colspan => 6 }
       %td There are no courses in the system
   - else
-    - @courses.each do |course}
+    - @courses.each do |course|
       %tr
         %td= course.name
         %td= course.description
-        %td= course.holes.count
+        %td= link_to(course.holes.count, admin_holes_path(:course_id => course))
         %td= link_to("Show", admin_course_path(course))
         %td= link_to("Edit", edit_admin_course_path(course))
         %td= link_to("Destroy", admin_course_path(course), :method => :delete)

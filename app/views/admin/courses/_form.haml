@@ -1,4 +1,4 @@
-= semantic_form_for(@course) do |form|
+= semantic_form_for([:admin, @course]) do |form|
   = form.semantic_errors
 
   = form.inputs do
@@ -7,5 +7,5 @@
     = form.input :start_at
     = form.input :end_at
 
-  = form.buttons do
-    = form.commit_button
+  = form.actions do
+    = form.action :submit, :as => :button

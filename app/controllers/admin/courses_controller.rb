@@ -1,7 +1,7 @@
 class Admin::CoursesController < ApplicationController
 
   def index
-    @courses = Course.all.page(params[:page])
+    @courses = Course.page(params[:page])
   end
 
   def show

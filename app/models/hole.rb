@@ -6,7 +6,9 @@ class Hole < ActiveRecord::Base
   
   validates_presence_of :name 
   validates_presence_of :maximum_execution_time
-  validates_presence_of :creator_id
+
+  # not usable until the user system is setup
+  # validates_presence_of :creator_id
 
   scope :active, lambda { where(:active => true) }
 

@@ -1,7 +1,12 @@
 class Admin::HolesController < ApplicationController
 
   def index
-    @holes = Hole.all.page(params[:page])
+    if params[:course_id]
+      @course = Course.find(params[:course_id])
+      @holes = Hole.where(:course_id => params[:course_id]).page(params[:page])
+    else
+      @course = Holw.page(params[:page])
+    end
   end
 
   def show
@@ -10,10 +15,12 @@ class Admin::HolesController < ApplicationController
 
   def new
     @hole = Hole.new
+    @hole.course_id = params[:course_id] if params[:course_id]
   end
 
   def create
     @hole = Hole.new(params[:hole])
+    @hole.creator = current_user
 
     respond_to do |format|
       if @hole.save

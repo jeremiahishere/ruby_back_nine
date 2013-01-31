@@ -1,0 +1,16 @@
+= semantic_form_for([:admin, @hole]) do |form|
+  = form.semantic_errors
+
+  = form.inputs do
+    = form.input :course
+    = form.input :name
+    = form.input :active
+    = form.input :description
+    = form.input :par
+    = form.input :maximum_execution_time
+    = form.input :sample_setup
+    = form.input :sample_solution
+    = form.input :sample_output
+
+  = form.actions do
+    = form.action :submit
