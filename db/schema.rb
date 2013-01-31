@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20130131151843) do
 
-  create_table "challenge_case", :force => true do |t|
+  create_table "challenge_cases", :force => true do |t|
     t.integer  "challenge_id"
     t.text     "setup"
     t.text     "expected_output"

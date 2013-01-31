@@ -16,7 +16,7 @@ class CreateChallenges < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :challenge_case do |t|
+    create_table :challenge_cases do |t|
       t.integer :challenge_id
       t.text :setup
       t.text :expected_output

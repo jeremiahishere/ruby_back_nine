@@ -1,6 +1,6 @@
 class Challenge < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User'
-  has_many :challenge_cases
+  has_many :cases, :class_name => 'ChallengeCase'
   has_many :solutions
   
   validates_presence_of :name 

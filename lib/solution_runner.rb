@@ -1,8 +1,9 @@
 require 'timeout'
 
 class SolutionRunner
-  def initialize(challenge, solution)
-    @challenges_cases = challenge.cases.active
+  def initialize(solution)
+    @challenge = solution.challenge
+    @challenge_cases = solution.challenge.cases.active
     @solution = solution
   end
 
@@ -11,22 +12,28 @@ class SolutionRunner
   end
 
   def run_solution
-    status = Timeout::timeout(challenge.maximum_execution_time) do
-      thread = Thread.new { eval solution.code }
-    end
+    # status = Timeout::timeout(@challenge.maximum_execution_time + 1) do
+    # end
+
+    thread = Thread.new { eval @solution.code }
+    thread.join(@challenge.maximum_execution_time)
+    return thread.value
   end
 
   def run
     output = {}
-
-    @challenge_cases.each do |cc|
-      begin
-        setup(cc)
-        output[cc] = run_solution
-      catch Exception => e
-        output[cc] = e.message
+    if @challenge_cases.empty?
+      return output
+    else
+      @challenge_cases.each do |cc|
+        begin
+          setup(cc)
+          output[cc] = { :value => run_solution }
+        rescue Exception => e
+          output[cc] = { :error => e.message }
+        end
       end
+      return output
     end
-    return output
   end
 end
