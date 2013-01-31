@@ -28,3 +28,10 @@ Solution.blueprint do
   submitted_at { Time.now }
   approved { true }
 end
+
+User.blueprint do
+  email { "user@rubybacknine.com" }
+  password { "password123" }
+  password_confirmation { "password123" }
+  remember_me { false}
+end

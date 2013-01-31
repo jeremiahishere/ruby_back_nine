@@ -20,7 +20,7 @@ class Solution < ActiveRecord::Base
     passed_cases == 0
     output.each_pair do |challenge_case, value|
       if challenge_case.expected_output == value
-        passed_cases++
+        passed_cases += 1
       end 
     end
 
