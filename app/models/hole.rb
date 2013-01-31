@@ -1,6 +1,7 @@
-class Challenge < ActiveRecord::Base
+class Hole < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User'
-  has_many :cases, :class_name => 'ChallengeCase'
+  belongs_to :course
+  has_many :cases, :class_name => 'TestCase'
   has_many :solutions
   
   validates_presence_of :name 

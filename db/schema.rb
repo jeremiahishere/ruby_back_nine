@@ -13,16 +13,16 @@
 
 ActiveRecord::Schema.define(:version => 20130131151843) do
 
-  create_table "challenge_cases", :force => true do |t|
-    t.integer  "challenge_id"
-    t.text     "setup"
-    t.text     "expected_output"
-    t.boolean  "active",          :default => true
+  create_table "courses", :force => true do |t|
+    t.string   "name"
+    t.datetime "start_at"
+    t.datetime "end_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "challenges", :force => true do |t|
+  create_table "holes", :force => true do |t|
+    t.integer  "course_id"
     t.string   "name"
     t.string   "description"
     t.integer  "difficulty"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20130131151843) do
 
   create_table "solutions", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "challenge_id"
+    t.integer  "hole_id"
     t.integer  "submitted_at"
     t.boolean  "approved",       :default => false
     t.text     "code"
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(:version => 20130131151843) do
     t.boolean  "success",        :default => false
     t.text     "display_output"
     t.integer  "score"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "test_cases", :force => true do |t|
+    t.integer  "hole_id"
+    t.text     "setup"
+    t.text     "expected_output"
+    t.boolean  "active",          :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

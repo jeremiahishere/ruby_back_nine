@@ -5,22 +5,22 @@ end
 
 class SolutionRunner
   def initialize(solution)
-    @challenge = solution.challenge
-    @challenge_cases = solution.challenge.cases.active
+    @hole = solution.hole
+    @test_cases = solution.hole.cases.active
     @solution = solution
   end
 
-  def setup(challenge_case)
-    eval challenge_case.setup
+  def setup(test_case)
+    eval test_case.setup
   end
 
   def run_solution
     # require 'timeout'
-    # status = Timeout::timeout(@challenge.maximum_execution_time + 1) do
+    # status = Timeout::timeout(@hole.maximum_execution_time + 1) do
     # end
 
     thread = Thread.new { eval @solution.code }
-    thread.join(@challenge.maximum_execution_time)
+    thread.join(@hole.maximum_execution_time)
     return thread.value
   end
 
@@ -32,10 +32,10 @@ class SolutionRunner
 
   def run
     output = {}
-    if @challenge_cases.empty?
+    if @test_cases.empty?
       return output
     else
-      @challenge_cases.each do |cc|
+      @test_cases.each do |cc|
         begin
           raise "Illegal call found" unless safe_code?
           setup(cc)

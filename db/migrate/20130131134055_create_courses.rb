@@ -1,9 +1,18 @@
-class CreateChallenges < ActiveRecord::Migration
+class CreateCourses < ActiveRecord::Migration
   def change
-    create_table :challenges do |t|
+    create_table :courses do |t|
+      t.string :name
+      t.datetime :start_at
+      t.datetime :end_at
+        
+      t.timestamps
+    end
+
+    create_table :holes do |t|
+      t.integer :course_id
       t.string :name
       t.string :description
-      t.integer :difficulty
+      t.integer :par
       t.integer :maximum_execution_time
 
       t.text :sample_setup
@@ -16,8 +25,8 @@ class CreateChallenges < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :challenge_cases do |t|
-      t.integer :challenge_id
+    create_table :test_cases do |t|
+      t.integer :hole_id
       t.text :setup
       t.text :expected_output
       t.boolean :active, :default => true
@@ -27,7 +36,7 @@ class CreateChallenges < ActiveRecord::Migration
 
     create_table :solutions do |t|
       t.integer :user_id
-      t.integer :challenge_id
+      t.integer :hole_id
 
       t.integer :submitted_at
       t.boolean :approved, :default => false

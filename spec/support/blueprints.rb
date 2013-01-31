@@ -1,7 +1,14 @@
 require 'machinist/active_record'
 require 'faker'
 
-Challenge.blueprint do
+Course.blueprint do
+  name { "Course #{sn}" }
+  start_at { Time.now }
+  end_at { Date.today + 30.days }
+end
+
+Hole.blueprint do
+  course { Course.make! }
   name { "Reverse the order of words #{sn}" }
   description { "Reverse the order of words in a senstence" }
   difficulty { 1 }
@@ -15,8 +22,8 @@ Challenge.blueprint do
   active { true }
 end
 
-ChallengeCase.blueprint do
-  challenge { Challenge.make! }
+TestCase.blueprint do
+  hole { Hole.make! }
   setup { "@sentence = 'Jinxed wizards pluck ivy from the big quilt'" }
   expected_output { "quilt big the from ivy pluck wizards Jinxed" }
   active { true }
@@ -24,7 +31,7 @@ end
 
 Solution.blueprint do
   user { User.make! }
-  challenge { Challenge.make! }
+  hole { Hole.make! }
   submitted_at { Time.now }
   code { "@sentence.split.reverse.join(' ')" }
   approved { true }
