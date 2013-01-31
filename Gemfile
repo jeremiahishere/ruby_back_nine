@@ -21,7 +21,7 @@ gem 'therubyracer'
 
 # code running
 gem 'jquery-rails'
-gem 'ruby_parser'
+gem 'rubycop'
 gem 'trackable_tasks'
 
 # Gems used only for assets and not required
