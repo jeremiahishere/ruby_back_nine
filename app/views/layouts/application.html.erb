@@ -10,6 +10,8 @@
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 
+You are <%= user_signed_in?  ? "" : "not" %> signed in.
+
 <%= yield %>
 
 </body>

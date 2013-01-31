@@ -1,4 +1,6 @@
 RubyBackNine::Application.routes.draw do
+  get "home/index"
+
   devise_for :users
 
   namespace :admin do
@@ -6,5 +8,5 @@ RubyBackNine::Application.routes.draw do
     resources :holes
   end
 
-  root :to => "pages#index"
+  root :to => "home#index"
 end
