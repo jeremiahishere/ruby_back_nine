@@ -12,12 +12,12 @@ class CreateCourses < ActiveRecord::Migration
     create_table :holes do |t|
       t.integer :course_id
       t.string :name
-      t.string :description
+      t.text :description
       t.integer :par
       t.integer :maximum_execution_time
 
       t.text :sample_setup
-      t.string :sample_solution
+      t.text :sample_solution
       t.text :sample_output
 
       t.integer :creator_id

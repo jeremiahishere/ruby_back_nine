@@ -4,6 +4,7 @@ RubyBackNine::Application.routes.draw do
   namespace :admin do
     resources :courses
     resources :holes
+    root :to => "pages#index"
   end
 
   root :to => "pages#index"

@@ -1,0 +1,27 @@
+%h1 
+  Listing Hole
+  - if @course
+    = " for #{@course.name}"
+
+= link_to("New Hole", new_admin_hole_path(:course_id => @course.id))
+
+
+= paginate @holes
+%table
+  %tr
+    %th Name
+    %th Description
+    %th
+    %th
+    %th
+  - if @holes.empty?
+    %tr{:colspan => 5 }
+      %td There are no holes for this course
+  - else
+    - @holes.each do |hole|
+      %tr
+        %td= hole.name
+        %td= hole.description
+        %td= link_to("Show", admin_hole_path(hole))
+        %td= link_to("Edit", edit_admin_hole_path(hole))
+        %td= link_to("Destroy", admin_hole_path(hole), :method => :delete)
