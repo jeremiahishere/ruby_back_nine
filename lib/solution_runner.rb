@@ -1,6 +1,8 @@
+require 'timeout'
+
 class SolutionRunner
-  def initialize(challenge_cases, solution)
-    @challenges_cases = challenge_cases
+  def initialize(challenge, solution)
+    @challenges_cases = challenge.cases.active
     @solution = solution
   end
 
@@ -9,7 +11,9 @@ class SolutionRunner
   end
 
   def run_solution
-    eval solution.code
+    status = Timeout::timeout(challenge.maximum_execution_time) do
+      thread = Thread.new { eval solution.code }
+    end
   end
 
   def run
@@ -18,9 +22,9 @@ class SolutionRunner
     @challenge_cases.each do |cc|
       begin
         setup(cc)
-        output[cc.id] = run_solution
+        output[cc] = run_solution
       catch Exception => e
-        output[cc.id] = e.message
+        output[cc] = e.message
       end
     end
     return output

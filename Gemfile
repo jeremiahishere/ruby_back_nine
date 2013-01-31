@@ -36,5 +36,12 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
+group :development, :test do
+  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'machinist', '>= 2.0.0.beta2'
+  gem 'faker'
+
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'shoulda'
+end

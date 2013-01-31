@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20130131134055) do
     t.integer  "challenge_id"
     t.text     "setup"
     t.text     "expected_output"
+    t.boolean  "active",          :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -24,12 +25,13 @@ ActiveRecord::Schema.define(:version => 20130131134055) do
   create_table "challenges", :force => true do |t|
     t.string   "name"
     t.string   "description"
-    t.integer  "difficult"
+    t.integer  "difficulty"
     t.integer  "maximum_execution_time"
     t.text     "sample_setup"
     t.string   "sample_solution"
     t.text     "sample_output"
     t.integer  "creator_id"
+    t.boolean  "active",                 :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -38,11 +40,12 @@ ActiveRecord::Schema.define(:version => 20130131134055) do
     t.integer  "user_id"
     t.integer  "challenge_id"
     t.integer  "submitted_at"
-    t.boolean  "approved"
+    t.boolean  "approved",       :default => false
     t.text     "code"
     t.text     "code_output"
     t.datetime "ran_at"
-    t.boolean  "success"
+    t.boolean  "success",        :default => false
+    t.text     "display_output"
     t.integer  "score"
     t.datetime "created_at"
     t.datetime "updated_at"
