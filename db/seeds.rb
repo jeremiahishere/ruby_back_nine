@@ -12,6 +12,6 @@ user_role = Role.create([{name: "golfer"}])
 admin = User.new(
   :email => "the-team@cloudspace.com",
   :password => "cloudspace",
-  :roles => [admin_role]
 )
+admin.roles.push admin_role
 admin.save validate: false

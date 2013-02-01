@@ -1,5 +1,8 @@
-class Admin::PagesController < ActionController::Base
+module Admin
+  class PagesController < AdminController
 
-  def index
+    def index
+
+    end
   end
 end
