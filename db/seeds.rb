@@ -5,3 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+admin_role = Role.create([{name: "admin"}])
+user_role = Role.create([{name: "golfer"}])
+
+admin = User.new(
+  :email => "the-team@cloudspace.com",
+  :password => "cloudspace",
+  :roles => [admin_role]
+)
+admin.save validate: false

@@ -5,7 +5,7 @@ class Admin::HolesController < ApplicationController
       @course = Course.find(params[:course_id])
       @holes = Hole.where(:course_id => params[:course_id]).page(params[:page])
     else
-      @course = Holw.page(params[:page])
+      @course = Hole.page(params[:page])
     end
   end
 
