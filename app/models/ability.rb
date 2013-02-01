@@ -8,7 +8,7 @@ class Ability
     elsif user.has_role? :golfer
       can :read, [Course, Hole, Solution]
       can :create, Solution
-    else
+    else #guest
       can :read, Course
       can :read, Hole
     end
