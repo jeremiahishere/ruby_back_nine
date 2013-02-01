@@ -13,12 +13,7 @@ Vagrant::Config.run do |config|
     chef.validation_key_path = File.join(ENV['HOME'], '.ssh', 'cloudspace-validator.pem')
     chef.validation_client_name = 'cloudspace-validator'
 
-    case ENV['USER']
-    when 'nthomson'
-        chef.node_name = "rubygolf_vagrant_nick"
-    else
-        chef.node_name = "rubygolf_vagrant_#{ENV['USER']}"
-    end
+    chef.node_name = "rubygolf_vagrant_#{ENV['USER']}"
 
     chef.add_recipe "ubuntu"
     chef.add_recipe "mysql::client"
