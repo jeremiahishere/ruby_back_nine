@@ -1,5 +1,7 @@
 module Admin
   class HolesController < AdminController
+    
+    load_and_authorize_resource
 
     def index
       if params[:course_id]
