@@ -12,7 +12,13 @@ Vagrant::Config.run do |config|
     chef.chef_server_url = 'https://api.opscode.com/organizations/cloudspace'
     chef.validation_key_path = File.join(ENV['HOME'], '.ssh', 'cloudspace-validator.pem')
     chef.validation_client_name = 'cloudspace-validator'
-    chef.node_name = "rubygolf_vagrant_#{ENV['USER']}"
+
+    case ENV['USER']
+    when 'nthomson'
+        chef.node_name = "rubygolf_vagrant_nick"
+    else
+        chef.node_name = "rubygolf_vagrant_#{ENV['USER']}"
+    end
 
     chef.add_recipe "ubuntu"
     chef.add_recipe "mysql::client"
