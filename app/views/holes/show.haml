@@ -1,0 +1,45 @@
+%h1=@hole.name
+
+= link_to("Back to course", course_path(@hole.course))
+%div.content
+  #courses
+    %p
+      %b Course:
+      = @hole.course.name
+    %p
+      %b Name:
+      = @hole.name
+    %p
+      %b Description:
+      = display_line_breaks(@hole.description)
+    %p
+      %b Par:
+      = @hole.par
+    %p
+      %b Maximum Execution Time
+      = @hole.maximum_execution_time
+
+    %p
+      %b Sample setup
+      %br
+      = "> " + display_line_breaks(@hole.sample_setup)
+      %br
+      = "> " + display_line_breaks(@hole.sample_solution)
+      %br
+      = "=> " + display_line_breaks(@hole.sample_output)
+    
+    %p
+      %b Creator
+      = @hole.creator.name if @hole.creator.present?
+
+    %p
+      %b Test Cases:
+      %li
+        - if @hole.cases.any?
+          - @hole.cases.each do |test_case|
+            %ul
+              %p
+                Active: 
+                = display_yesno(test_case.active)
+              = display_line_breaks(test_case.setup)
+              = display_line_breaks(expected_output)

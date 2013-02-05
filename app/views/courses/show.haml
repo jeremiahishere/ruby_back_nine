@@ -1,6 +1,6 @@
 %h1=@course.name
 
-= link_to("Back to index", admin_courses_path)
+= link_to("Back to index", root_path)
 %div.content
   #courses
     %p
@@ -17,4 +17,4 @@
       %ul
         - if @course.holes.any?
           - @course.holes.each do |hole|
-            %li= link_to(hole.name, admin_hole_path(hole))
+            %li= link_to(hole.name, hole_path(hole))

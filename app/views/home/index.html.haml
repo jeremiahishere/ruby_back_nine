@@ -1,1 +1,12 @@
-%h1 Home#index
+%h2 Active Courses
+%ul
+  - @courses.each do |course|
+    %li
+      .course
+        %span.name= link_to(course.name, course_path(course))
+        %span.hole-count=" - #{pluralize(course.holes.length, "hole")},"
+        %span.par="par #{course.par}"
+        .dates
+          .start=course.start_at
+          .end=course.end_at
+        .description=course.description

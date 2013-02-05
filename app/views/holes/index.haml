@@ -1,0 +1,19 @@
+%h1 
+  Listing Hole
+  - if @course
+    = " for #{@course.name}"
+
+
+= paginate @holes
+%table
+  %tr
+    %th Name
+    %th Description
+  - if @holes.empty?
+    %tr{:colspan => 5 }
+      %td There are no holes for this course
+  - else
+    - @holes.each do |hole|
+      %tr
+        %td= hole.name
+        %td= hole.description
