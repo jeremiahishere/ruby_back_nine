@@ -8,9 +8,20 @@
     = form.input :description
     = form.input :par
     = form.input :maximum_execution_time
-    = form.input :sample_setup
-    = form.input :sample_solution
-    = form.input :sample_output
+    %div
+      Sample Test Case
+      = form.inputs :for => :test_cases do |tc_form|
+        = tc_form.input :sample, :as => :hidden, :value => true
+        = tc_form.input :active, :as => :hidden, :value => true
+        = tc_form.input :setup, :as => :text
+        = tc_form.input :expected_output, :as => :text
+    %div 
+      Sample Solution
+      = form.inputs :for => :solutions do |sol_form|
+        = sol_form.input :user_id, :as => :hidden , :value => current_user.id
+        = sol_form.input :sample, :as => :hidden, :value => true
+        = sol_form.input :submitted_at, :as => :hidden, :value => Time.now
+        = sol_form.input :code, :as => :text
 
   = form.actions do
     = form.action :submit

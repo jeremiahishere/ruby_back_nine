@@ -11,7 +11,7 @@ Hole.blueprint do
   course { Course.make! }
   name { "Reverse the order of words #{sn}" }
   description { "Reverse the order of words in a senstence" }
-  difficulty { 1 }
+  par { 1 }
   maximum_execution_time { 15 }
 
   sample_setup { "@sentence = 'The quick brown fox jumps over the lazy dog'" }

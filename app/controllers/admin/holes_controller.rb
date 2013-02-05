@@ -1,62 +1,60 @@
-module Admin
-  class HolesController < AdminController
-    
-    load_and_authorize_resource
+class Admin::HolesController < ApplicationController
 
-    def index
-      if params[:course_id]
-        @course = Course.find(params[:course_id])
-        @holes = Hole.where(:course_id => params[:course_id]).page(params[:page])
+  def index
+    if params[:course_id]
+      @course = Course.find(params[:course_id])
+      @holes = Hole.where(:course_id => params[:course_id]).page(params[:page])
+    else
+      @holes = Hole.page(params[:page])
+    end
+  end
+
+  def show
+    @hole = Hole.find(params[:id])
+  end
+
+  def new
+    @hole = Hole.new
+    @hole.course_id = params[:course_id] if params[:course_id]
+    @hole.test_cases.build
+    @hole.solutions.build
+  end
+
+  def create
+    @hole = Hole.new(params[:hole])
+    @hole.creator = current_user
+
+    respond_to do |format|
+      if @hole.save
+        format.html { redirect_to(admin_hole_path(@hole), :notice => 'Successfully created a new hole') }
       else
-        @course = Hole.page(params[:page])
+        format.html { render :action => "new" }
       end
     end
+  end
 
-    def show
-      @hole = Hole.find(params[:id])
-    end
+  def edit
+    @hole = Hole.find(params[:id])
+  end
 
-    def new
-      @hole = Hole.new
-      @hole.course_id = params[:course_id] if params[:course_id]
-    end
+  def update
+    @hole = Hole.find(params[:id])
 
-    def create
-      @hole = Hole.new(params[:hole])
-      @hole.creator = current_user
-
-      respond_to do |format|
-        if @hole.save
-          format.html { redirect_to(admin_hole_path(@hole), :notice => 'Successfully created a new hole') }
-        else
-          format.html { render :action => "new" }
-        end
+    respond_to do |format|
+      if @hole.update_attributes(params[:hole])
+        format.html { redirect_to(admin_hole_path(@hole), :notice => 'Successfully updated a hole') }
+      else
+        format.html { render :action => "new" }
       end
     end
+  end
 
-    def edit
-      @hole = Hole.find(params[:id])
-    end
+  def destroy
+    @hole = Hole.find(params[:id])
+    @hole.destroy
 
-    def update
-      @hole = Hole.find(params[:id])
-
-      respond_to do |format|
-        if @hole.update_attributes(params[:hole])
-          format.html { redirect_to(admin_hole_path(@hole), :notice => 'Successfully updated a hole') }
-        else
-          format.html { render :action => "new" }
-        end
-      end
-    end
-
-    def destroy
-      @hole = Hole.find(params[:id])
-      @hole.destroy
-
-      respond_to do |format|
-        format.html { redirect_to(admin_holes_path, :notice => "Succesfully deleted a hole") }
-      end
+    respond_to do |format|
+      format.html { redirect_to(admin_holes_path, :notice => "Succesfully deleted a hole") }
     end
   end
 end

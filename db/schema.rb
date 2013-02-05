@@ -32,12 +32,9 @@ ActiveRecord::Schema.define(:version => 20130131201124) do
   create_table "holes", :force => true do |t|
     t.integer  "course_id"
     t.string   "name"
-    t.string   "description"
+    t.text     "description"
     t.integer  "par"
     t.integer  "maximum_execution_time"
-    t.text     "sample_setup"
-    t.string   "sample_solution"
-    t.text     "sample_output"
     t.integer  "creator_id"
     t.boolean  "active",                 :default => true
     t.datetime "created_at"
@@ -61,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20130131201124) do
     t.boolean  "success",        :default => false
     t.text     "display_output"
     t.integer  "score"
+    t.boolean  "sample",         :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -70,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20130131201124) do
     t.text     "setup"
     t.text     "expected_output"
     t.boolean  "active",          :default => true
+    t.boolean  "sample",          :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

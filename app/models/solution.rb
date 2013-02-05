@@ -4,9 +4,10 @@ class Solution < ActiveRecord::Base
   belongs_to :hole
   belongs_to :user
 
-  validates_presence_of :hole_id
   validates_presence_of :user_id
   validates_presence_of :code
+
+  scope :samples, lambda { where(:sample => true) }
 
   def ran?
     ran_at.nil?

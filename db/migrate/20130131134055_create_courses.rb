@@ -16,10 +16,6 @@ class CreateCourses < ActiveRecord::Migration
       t.integer :par
       t.integer :maximum_execution_time
 
-      t.text :sample_setup
-      t.text :sample_solution
-      t.text :sample_output
-
       t.integer :creator_id
       t.boolean :active, :default => true
 
@@ -31,6 +27,7 @@ class CreateCourses < ActiveRecord::Migration
       t.text :setup
       t.text :expected_output
       t.boolean :active, :default => true
+      t.boolean :sample, :default => false
 
       t.timestamps
     end
@@ -49,6 +46,8 @@ class CreateCourses < ActiveRecord::Migration
       t.boolean :success, :default => false
       t.text :display_output
       t.integer :score
+
+      t.boolean :sample, :default => false
 
       t.timestamps
     end
