@@ -1,45 +1,47 @@
-%h1=@hole.name
+.backlinks
+  = link_to("Back to course", admin_course_path(@hole.course))
 
-= link_to("Back to index", admin_courses_path(:course_id => @hole.course.id))
-%div.content
-  #courses
-    %p
-      %b Course:
-      = @hole.course.name
-    %p
-      %b Name:
-      = @hole.name
-    %p
-      %b Description:
-      = display_line_breaks(@hole.description)
-    %p
-      %b Par:
-      = @hole.par
-    %p
-      %b Maximum Execution Time
-      = @hole.maximum_execution_time
+%h2=@hole.name
 
-    %p
-      %b Sample setup
-      %br
-      = "> " + display_line_breaks(@hole.sample_setup)
-      %br
-      = "> " + display_line_breaks(@hole.sample_solution)
-      %br
-      = "=> " + display_line_breaks(@hole.sample_output)
+.hole.info
+  =link_to"Edit Hole", edit_admin_hole_path(@hole)
+  %p
+    %strong Course:
+    = @hole.course.name
+  %p
+    %strong Creator:
+    = @hole.creator.name if @hole.creator.present?
+  %p
+    %strong Par:
+    = @hole.par
+  %p
+    %strong Maximum Execution Time:
+    =pluralize(@hole.maximum_execution_time, "second")    
+  %p
+    %strong Description:
+    = display_line_breaks(@hole.description)
+
+  %p
+    -if @hole.sample_setup.to_s != ''
+      %strong Sample setup:
+      %pre.prettyprint= display_line_breaks(@hole.sample_setup)
     
-    %p
-      %b Creator
-      = @hole.creator.name if @hole.creator.present?
+    -if @hole.sample_solution.to_s != ''
+      %strong Sample solution:
+      %pre.prettyprint= display_line_breaks(@hole.sample_solution)
+    
+    -if @hole.sample_output.to_s != ''
+      %strong Sample output:
+      %pre.prettyprint= display_line_breaks(@hole.sample_output)
 
-    %p
-      %b Test Cases:
-      %li
-        - if @hole.cases.any?
-          - @hole.cases.each do |test_case|
-            %ul
-              %p
-                Active: 
-                = display_yesno(test_case.active)
-              = display_line_breaks(test_case.setup)
-              = display_line_breaks(expected_output)
+  %p
+    - if @hole.cases.any?
+      %strong Test Cases:
+      %ul.cases
+        - @hole.cases.each do |test_case|
+          %li
+            %p
+              Active: 
+              = display_yesno(test_case.active)
+            = display_line_breaks(test_case.setup)
+            = display_line_breaks(expected_output)

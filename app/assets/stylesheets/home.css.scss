@@ -9,7 +9,9 @@ a {
   color: #08c;
   text-decoration: none;
 }
-
+p {
+  margin: 10px 0;
+}
 strong {
   font-weight: bold;
 }
@@ -111,12 +113,52 @@ li .course .dates {
   margin-top: 20px;
 }
 
-.info p {
-  margin: 10px 0;
-}
 ul.holes, ul.cases {
   margin: 10px;
 }
 
+table {
+  margin-top: 20px;
+}
 
+table td, table th {
+  padding: 3px;
+}
+table td.name {
+ width: 11em;
+}
+table th {
+  font-weight: bold;
+  text-align: left;
+}
 
+table tr {
+  border-bottom: 1px #aaa solid;
+}
+
+table tr:nth-child(2n) {
+  background: #f0f0f0;
+}
+
+td.button {
+  vertical-align: middle;
+}
+
+li.input {
+  padding: 10px;
+  clear: both;
+  overflow: auto;
+}
+li.input input {
+  
+  float: left;
+}
+li.input textarea {
+  width: 400px;
+  height: 100px;
+}
+li.input label {
+  float: left;
+  font-weight: bold;
+  width: 15em;
+}

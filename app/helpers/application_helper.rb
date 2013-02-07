@@ -13,6 +13,7 @@ module ApplicationHelper
   # @return [String] The date in 1/12/2012 format
   def display_date(date)
     DateFormat.date(date)
+    
   end 
 
   # @param [Date] date The date
@@ -23,6 +24,6 @@ module ApplicationHelper
 
   # 1/12/2012 at 9:50 pm
   def display_datetime(datetime)
-    DateFormat.datetime(datetime)
+    datetime.strftime("%b. %e, %Y at %I:%M %p")
   end 
 end

@@ -1,9 +1,9 @@
-%h1 
-  Listing Hole
+%h2
+  Listing Holes
   - if @course
     = " for #{@course.name}"
 
-= link_to("New Hole", new_admin_hole_path(:course_id => @course.id))
+%p= link_to("New Hole", new_admin_hole_path(:course_id => @course.id))
 
 
 = paginate @holes
@@ -20,8 +20,8 @@
   - else
     - @holes.each do |hole|
       %tr
-        %td= hole.name
+        %td.name= hole.name
         %td= hole.description
-        %td= link_to("Show", admin_hole_path(hole))
-        %td= link_to("Edit", edit_admin_hole_path(hole))
-        %td= link_to("Destroy", admin_hole_path(hole), :method => :delete)
+        %td.button= link_to("Show", admin_hole_path(hole))
+        %td.button= link_to("Edit", edit_admin_hole_path(hole))
+        %td.button= link_to("Destroy", admin_hole_path(hole), :method => :delete)

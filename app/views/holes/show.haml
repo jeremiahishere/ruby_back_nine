@@ -8,29 +8,30 @@
     %strong Course:
     = @hole.course.name
   %p
-    %strong Description:
-    = display_line_breaks(@hole.description)
+    %strong Creator:
+    = @hole.creator.name if @hole.creator.present?
   %p
     %strong Par:
     = @hole.par
   %p
     %strong Maximum Execution Time:
-    = @hole.maximum_execution_time
-    second
+    =pluralize(@hole.maximum_execution_time, "second")    
+  %p
+    %strong Description:
+    = display_line_breaks(@hole.description)
 
   %p
-    %strong Sample setup:
-    %pre.prettyprint= display_line_breaks(@hole.sample_setup)
+    -if @hole.sample_setup.to_s != ''
+      %strong Sample setup:
+      %pre.prettyprint= display_line_breaks(@hole.sample_setup)
     
-    %strong Sample solution:
-    %pre.prettyprint= display_line_breaks(@hole.sample_solution)
+    -if @hole.sample_solution.to_s != ''
+      %strong Sample solution:
+      %pre.prettyprint= display_line_breaks(@hole.sample_solution)
     
-    %strong Sample output:
-    %pre.prettyprint= display_line_breaks(@hole.sample_output)
-
-  %p
-    %strong Creator:
-    = @hole.creator.name if @hole.creator.present?
+    -if @hole.sample_output.to_s != ''
+      %strong Sample output:
+      %pre.prettyprint= display_line_breaks(@hole.sample_output)
 
   %p
     - if @hole.cases.any?
