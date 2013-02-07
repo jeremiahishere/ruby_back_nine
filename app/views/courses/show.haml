@@ -1,20 +1,16 @@
-%h1=@course.name
+.backlinks
+  = link_to("Back to index", root_path)
 
-= link_to("Back to index", root_path)
-%div.content
-  #courses
-    %p
-      %b Name:
-      = @course.name
-    %p
-      %b Description:
-      = display_line_breaks(@course.description)
-    %p
-      %b Active Dates:
-      = "#{display_datetime(@course.start_at)} to #{display_datetime(@course.end_at)}"
-    %p
-      %b Holes:
-      %ul
-        - if @course.holes.any?
-          - @course.holes.each do |hole|
-            %li= link_to(hole.name, hole_path(hole))
+%h2=@course.name
+.course.info
+  %p
+    %strong Active Dates:
+    = "#{display_datetime(@course.start_at)} to #{display_datetime(@course.end_at)}"
+  %p
+    = display_line_breaks(@course.description)
+  %p
+    %strong Holes:
+    %ul.holes
+      - if @course.holes.any?
+        - @course.holes.each do |hole|
+          %li= link_to(hole.name, hole_path(hole))

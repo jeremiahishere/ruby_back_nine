@@ -6,16 +6,21 @@
     =javascript_include_tag "application"
     =csrf_meta_tags
 %body
-  %p.notice= notice
-  %p.alert= alert
+  %header.head.box
+    %p.notice= notice
+    %p.alert= alert
+    %h1.header
+      =link_to('RubyGolf', root_path)
+    %p.links
+      -if user_signed_in?
+        = current_user.email
+        |
+        =link_to('Logout', destroy_user_session_path, :method => :delete)
+        
+      -else
+        =link_to('Register', new_user_registration_path)
+        |
+        =link_to('Login', new_user_session_path)
 
-  %p.links
-    -if user_signed_in?
-      =link_to('Logout', destroy_user_session_path, :method => :delete)
-      |
-      = current_user.email
-    -else
-      =link_to('Login', new_user_session_path)
-      =link_to('Register', new_user_registration_path)
-
-  =yield
+  %section.content.box
+    =yield
