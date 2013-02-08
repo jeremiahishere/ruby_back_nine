@@ -21,32 +21,23 @@
     = display_line_breaks(@hole.description)
 
   %p
-    -if @hole.sample_setup.to_s != ''
-      %strong Sample setup:
-      %pre.prettyprint= display_line_breaks(@hole.sample_setup)
-    
-    -if @hole.sample_solution.to_s != ''
-      %strong Sample solution:
-      %pre.prettyprint= display_line_breaks(@hole.sample_solution)
-    
-    -if @hole.sample_output.to_s != ''
-      %strong Sample output:
-      %pre.prettyprint= display_line_breaks(@hole.sample_output)
+    %strong Sample setup:
+    %pre.prettyprint= display_line_breaks(@hole.sample_test_case.setup)
+  
+    %strong Sample solution:
+    %pre.prettyprint= display_line_breaks(@hole.sample_solution.code)
+  
+    %strong Sample output:
+    %pre.prettyprint= display_line_breaks(@hole.sample_test_case.expected_output)
 
-  %p
-    - if @hole.cases.any?
-      %strong Test Cases:
-      %ul.cases
-        - @hole.cases.each do |test_case|
-          %li
-            %p
-              Active: 
-              = display_yesno(test_case.active)
-            = display_line_breaks(test_case.setup)
-            = display_line_breaks(expected_output)
+
 
   %p
     -if user_signed_in?
-      =link_to "Submit your solution", "/"
+      =link_to "Submit your solution", "javascript:void(0);", :class => "show_solution_submit"
+      .submit.hide
+        %textarea.solution
+        %p.center.submit_button
+          %button.add_solution Add a solution
     -else
       =link_to "Log in to submit your solution", new_user_session_path

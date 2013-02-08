@@ -23,19 +23,16 @@
 
   %p
     %strong Sample setup
-    %br
-    = "> " + display_line_breaks(@hole.sample_test_case.setup)
-    %br
-    = "> " + display_line_breaks(@hole.sample_solution.code)
-    %br
-    = "=> " + display_line_breaks(@hole.sample_test_case.expected_output)
+    %pre.prettyprint= display_line_breaks(@hole.sample_test_case.setup)
+    %pre.prettyprint= display_line_breaks(@hole.sample_solution.code)
+    %pre.prettyprint= display_line_breaks(@hole.sample_test_case.expected_output)
 
   %p
     %b Test Cases:
-    %li
+    %ul
       - if @hole.test_cases.any?
         - @hole.test_cases.each do |test_case|
-          %ul
+          %li
             %p
               %b Active: 
               = display_yesno(test_case.active)
