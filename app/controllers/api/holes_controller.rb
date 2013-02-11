@@ -15,5 +15,4 @@ class API::HolesController < ApplicationController
   def show
     respond_with @hole = Hole.find(params[:id])
   end
-  
 end

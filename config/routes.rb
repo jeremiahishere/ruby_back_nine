@@ -11,6 +11,7 @@ RubyBackNine::Application.routes.draw do
   
   namespace :API do
     resources :courses, :holes
+    root :to => "home#index"
   end
   
   resources :courses, :holes
