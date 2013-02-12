@@ -1,15 +1,2 @@
-%h2 Active Courses
-%ul.courses
-  - @courses.each do |course|
-    %li
-      .course
-        .head
-          .title
-            %span.name= link_to(course.name, "javascript:void(0);", {:class => "open"})
-            %span.hole-count=" - #{pluralize(course.holes.length, "hole")},"
-            %span.par="par #{course.par}"
-          .dates
-            -if not course.end_at.nil?
-              .end="Closes on #{course.end_at.strftime("%B %d, %Y")}"
-          .clearfix
-        .description=course.description
+%h2.page_title Active Courses
+#payload

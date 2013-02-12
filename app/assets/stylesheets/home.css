@@ -14,7 +14,7 @@ strong {
   font-weight: bold;
 }
 .hide {
-  display: none;
+/*  display: none;*/
 }
 .center {
   text-align: center;
@@ -80,21 +80,21 @@ header hr {
 .courses {
   margin-top: 15px;
 }
-li .course {
+.courses .course {
   padding: 5px;
   margin-bottom: 20px;
   padding-bottom: 20px;
   border-bottom: 1px #ccc solid;
 }
-li .course .head {
+.courses .course .head {
   margin-bottom: 15px;
   font-size: 1.25em;
   line-height: 20px;
 }
-li .course .title {
+.courses .course .title {
   float: left;
 }
-li .course .dates {
+.courses .course .dates {
   float:right;
   font-size: .8em;
   color: #999;

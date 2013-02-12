@@ -28,3 +28,38 @@
 
   %section.content.box#rubygolf
     =yield
+    
+  #templates{:style=>'display:none'}
+    .course_detail
+      .course.info
+        %p
+          %strong Active Dates: {{start_at}} to {{end_at}}
+        %p {{description}}
+        %p
+          %strong Holes:
+          %ul.holes 
+            {{holes.models[0].attributes.name}}
+    .course_list
+      .course
+        .head
+          .title
+            %span.name
+              %a.open{:href => "javascript:void(0);"} {{name}}
+          .dates
+            .end Closes on {{end_at}}
+          .clearfix
+        .description {{description}}
+    .hole_detail  
+      .hole.info
+        %p
+          %strong Creator: {{creator}}
+        %p
+          %strong Par: {{par}}
+        %p
+          %strong Maximum Execution Time: {{maximum_execution_time}}
+        %p
+          %strong Description: {{description}}
+        %p
+          %strong Sample setup: {{sample_test_case.setup}}
+          %strong Sample solution: {{sample_solution.code}}
+          %strong Sample output: {{sample_test_case.expected_output}}

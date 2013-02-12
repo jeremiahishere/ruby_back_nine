@@ -1,19 +1,10 @@
-var whenever;
+//_.templateSettings.interpolate = /\{\{(.+?)\}\}/g //Nicer template tags
 
-$(document).ready(function(){
-  var submit_show = function(){
-    $('.submit.hide').toggle();
-  }
-  $('.show_solution_submit').click(submit_show);
-
-  var TestCase = Backbone.Model.extend({
-  });
-  
-  var Solution = Backbone.Model.extend({
-  });
+$(function(){
+  var TestCase = Backbone.Model.extend({});
+  var Solution = Backbone.Model.extend({});
   
   var Hole = Backbone.Model.extend({
-    
     defaults: function() {
       return {
         name: "new hole...",
@@ -27,16 +18,14 @@ $(document).ready(function(){
     },
     url : function() {
       return '/API' + (this.id ? '/holes/' + this.id : '/holes'); 
-    },
-    
-    // Ensure that each hole has defaults in place
-    initialize: function() {
-    },
-    
+    }
   });
   
   var HoleList = Backbone.Collection.extend({
-    model: Hole
+    model: Hole,
+    url: function() {
+      return '/API/holes'; 
+    }
   });
   
   var Course = Backbone.Model.extend({
@@ -51,7 +40,16 @@ $(document).ready(function(){
       };
     },
     initialize: function() {
-
+      this.set('holes', new HoleList());
+      var self = this;
+      this.get('holes').url = function () {
+        console.log("Get url for " + self.id);
+        var url = '/API/holes/' + (self.id ? '?course_id='+self.id : '');
+        console.log(url);
+        return url;
+      };
+      
+      this.get('holes').fetch();
     },
     url: function() {
       return '/API' + (this.id ? '/courses/' + this.id : '/courses'); 
@@ -59,53 +57,100 @@ $(document).ready(function(){
   });
   
   var CourseList = Backbone.Collection.extend({
-    model: Course
+    model: Course,
+    url: function() {
+      return '/API/courses'; 
+    }
   });
   
-  var CourseView = Backbone.View.extend({
-    tagName: "div",
-    className: "course",
+  var HoleView = Backbone.View.extend({
+    details_template: _.template($('#templates .hole_detail').html()),
+    list_template: _.template("<li><a class='open' href='javascript:void(0);'>{{name}}</a></li>"),
     events: {
       "click .open": "open"
     },
     open: function() {
-      console.log("Click open!");
+      console.log("Click open for "+this.model.id);
+      var view = new HoleView({model: this.model, template_name: 'details'});
+      app.holeDetail(view);
     },
-    initialize: function() {
+    initialize: function(options) {
       this.listenTo(this.model, "change", this.render);
+      this.template = this[options.template_name+'_template'];
     },
     render: function() {
-      console.log("render");
-      this.$el.html("<li>\
-        <div class='course'>\
-          <div class='head'>\
-            <div class='title'>\
-              <span class='name'><a href='javascript:void(0);' class='open'>"+this.model.get("name")+"</a></span>\
-              <span class='hole-count'> - "+this.model.get("name")+" hole,</span>\
-              <span class='par'>par "+this.model.get("par")+"</span>\
-            </div>\
-            <div class='dates'>\
-              <div class='end'>Closes on "+this.model.get("end_at")+"</div>\
-            </div>\
-            <div class='clearfix'></div>\
-          </div>\
-          <div class='description'>"+this.model.get("description")+"</div>\
-        </div>\
-      </li>");
+      this.$el.html(this.template(this.model.toJSON()));
       return this;
     }
   })
   
-  
-  var AppView = Backbone.View.extend({
-    el: $('#rubygolf')
+  var HolesView = Backbone.View.extend({
+    tagName: "ul",
+    className: "holes",
+    render: function() {
+      this.$el.html("");
+      this.collection.each(function(hole){
+        this.$el.append("<li class='hole'>"+hole.get("name")+"</li>")
+      })
+    }
   });
   
-  var c = new Course({id: 1});
-  whenever = new CourseView({model: c, el: $("ul.courses")});
-  c.fetch();
+  var CoursesView = Backbone.View.extend({
+    tagName: "ul",
+    className: "courses",
+    render: function() {
+      this.$el.html("");
+      this.collection.each(function(course) {
+          var view = new CourseView({ model: course, template_name: 'list', tagName: 'li'});
+          this.$el.append(view.render().el);          
+      }, this);
+      return this;
+    }
+  })
   
-  //console.log(mHole);
+  var CourseView = Backbone.View.extend({
+    details_template: _.template($('#templates .course_detail').html()),
+    list_template: _.template($('#templates .course_list').html()),
+    events: {
+      "click .open": "open"
+    },
+    open: function() {
+      console.log("Click open for "+this.model.id);
+      var view = new CourseView({model: this.model, template_name: 'details'});
+      app.courseDetail(view);
+    },
+    initialize: function(options) {
+      this.listenTo(this.model, "change", this.render);
+      this.template = this[options.template_name+'_template'];
+    },
+    render: function() {
+      this.$el.html(this.template(this.model.toJSON()));
+      console.log(this.model.toJSON());
+      return this;
+    }
+  })
+  var courses = new CourseList();
   
-})
+  var AppView = Backbone.View.extend({
+    el: $('#rubygolf'),
+    initialize: function() {
+      this.listenTo(courses, 'reset', this.listCourses);
+      courses.fetch();
+    },
+    listCourses: function(){
+      var list_view = new CoursesView({collection: courses});
+      this.$('#payload').html(list_view.render().el);
+      this.$('h2.page_title').html("Active Courses");
+    },
+    courseDetail: function(courseView){
+      this.$('#payload').html(courseView.render().el);
+      this.$('h2.page_title').html(courseView.model.get("name"));
+    },
+    holeDetail: function(holeView){
+      this.$('#payload').html(holeView.render().el);
+      this.$('h2.page_title').html(holeView.model.get("name"));
+    }
+  });
 
+  var app = new AppView();
+})
