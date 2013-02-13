@@ -38,7 +38,6 @@
         %p
           %strong Holes:
           %ul.holes 
-            {{holes.models[0].attributes.name}}
     .course_list
       .course
         .head
@@ -52,7 +51,7 @@
     .hole_detail  
       .hole.info
         %p
-          %strong Creator: {{creator}}
+          %strong Creator: {{creator_id}}
         %p
           %strong Par: {{par}}
         %p
@@ -60,6 +59,4 @@
         %p
           %strong Description: {{description}}
         %p
-          %strong Sample setup: {{sample_test_case.setup}}
-          %strong Sample solution: {{sample_solution.code}}
-          %strong Sample output: {{sample_test_case.expected_output}}
+          %strong Sample Setup: {{sample_test_case_setup}}

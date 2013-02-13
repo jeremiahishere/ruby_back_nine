@@ -1,21 +1,9 @@
-//_.templateSettings.interpolate = /\{\{(.+?)\}\}/g //Nicer template tags
-
+_.templateSettings.interpolate = /\{\{(.+?)\}\}/g //Nicer template tags
 $(function(){
-  var TestCase = Backbone.Model.extend({});
   var Solution = Backbone.Model.extend({});
+  var TestCase = Backbone.Model.extend({});
   
   var Hole = Backbone.Model.extend({
-    defaults: function() {
-      return {
-        name: "new hole...",
-        creator: "the-team@cloudspace.com",
-        par: 1,
-        max_exec: 1,
-        description: "An unfinished hole.",
-        sample_test_case: new TestCase(),
-        sample_solution: new Solution()
-      };
-    },
     url : function() {
       return '/API' + (this.id ? '/holes/' + this.id : '/holes'); 
     }
@@ -43,9 +31,7 @@ $(function(){
       this.set('holes', new HoleList());
       var self = this;
       this.get('holes').url = function () {
-        console.log("Get url for " + self.id);
         var url = '/API/holes/' + (self.id ? '?course_id='+self.id : '');
-        console.log(url);
         return url;
       };
       
@@ -65,17 +51,19 @@ $(function(){
   
   var HoleView = Backbone.View.extend({
     details_template: _.template($('#templates .hole_detail').html()),
-    list_template: _.template("<li><a class='open' href='javascript:void(0);'>{{name}}</a></li>"),
+    list_template: _.template("<a class='open' href='javascript:void(0);'>{{name}}</a>"),
     events: {
       "click .open": "open"
     },
     open: function() {
-      console.log("Click open for "+this.model.id);
-      var view = new HoleView({model: this.model, template_name: 'details'});
-      app.holeDetail(view);
+      var hole = new Hole({id: this.model.get('id')});
+      this.listenTo(hole, "change", function(){
+        var view = new HoleView({model: hole, template_name: 'details'});
+        app.holeDetail(view);
+      });
+      hole.fetch();
     },
     initialize: function(options) {
-      this.listenTo(this.model, "change", this.render);
       this.template = this[options.template_name+'_template'];
     },
     render: function() {
@@ -89,9 +77,13 @@ $(function(){
     className: "holes",
     render: function() {
       this.$el.html("");
+      var self = this;
       this.collection.each(function(hole){
-        this.$el.append("<li class='hole'>"+hole.get("name")+"</li>")
+        var holeView = new HoleView({model: hole, template_name: 'list', tagName: 'li'})
+        self.$el.append(holeView.render().el);
       })
+      console.log("Render holes")
+      return self;
     }
   });
   
@@ -115,17 +107,24 @@ $(function(){
       "click .open": "open"
     },
     open: function() {
-      console.log("Click open for "+this.model.id);
-      var view = new CourseView({model: this.model, template_name: 'details'});
-      app.courseDetail(view);
+      console.log("open")
+      var course = new Course({id: this.model.get('id')});
+      var self = this;
+      this.listenTo(course, "change", function(){
+        var view = new CourseView({model: course, template_name: 'details'});
+        app.courseDetail(view);
+      });
+      course.fetch();
     },
     initialize: function(options) {
       this.listenTo(this.model, "change", this.render);
       this.template = this[options.template_name+'_template'];
+      this.holesView = new HolesView({collection: this.model.get('holes'), template_name: 'list'});
     },
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
-      console.log(this.model.toJSON());
+      this.$('ul.holes').html(this.holesView.render().el);
+      
       return this;
     }
   })

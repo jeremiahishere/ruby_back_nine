@@ -13,6 +13,14 @@ class API::HolesController < ApplicationController
   end
 
   def show
-    respond_with @hole = Hole.find(params[:id])
+    @hole = Hole.find(params[:id])
+    
+    @sample_case = TestCase.where(:hole_id => params[:id], :sample => true)
+    @sample_solution = Solution.where(:hole_id => params[:id], :sample => true)
+    
+    @hole["sample_test_case_setup"] = @sample_case[0].setup
+    @hole["sample_test_case_output"] = @sample_case[0].expected_output
+    @hole["sample_solution_code"] = @sample_solution[0].code
+    respond_with @hole
   end
 end

@@ -18,7 +18,7 @@ class Solution < ActiveRecord::Base
     output = runner.run
 
     # use the total cases and passed cases to determine success
-    total_cases = hole.cases.active.count
+    total_cases = hole.test_cases.active.count
     output_errors = ""
     passed_cases = 0
     output.each_pair do |test_case, output|

@@ -6,7 +6,7 @@ end
 class SolutionRunner
   def initialize(solution)
     @hole = solution.hole
-    @test_cases = solution.hole.cases.active
+    @test_cases = solution.hole.test_cases.active
     @solution = solution
   end
 

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Ruby Back Nine</title>
+  <script src="/assets/jquery.js?body=1" type="text/javascript"></script>
+  <script src="/assets/jquery_ujs.js?body=1" type="text/javascript"></script>
+  <script src="/assets/_underscore-min.js?body=1" type="text/javascript"></script>
+  <script src="/assets/_backbone-min.js?body=1" type="text/javascript"></script>
+  <script src="/assets/rubyback9.js?body=1" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="/assets/_reset.css?body=1" />
+  <link rel="stylesheet" type="text/css" href="/assets/rubyback9.css?body=1" />
+  <style>
+  
+  </style>
+</head>
+<body>
+  <div id='head'>
+    <h1><a href='/app.html'>Ruby Back Nine</a></h1>
+    <ul class='navlinks'>
+      <li>nthomson |</li>
+      <li><a href='javascript:void(0)'>Admin</a> |</li>
+      <li><a href='javascript:void(0)'>Logout</a></li>
+    </ul>
+  </div>
+  <div id='message'>Loading...</div>
+  <div id='application'>
+    <ul class='courses navlist'></ul>
+    <div id='course'>
+      <div class='course'>
+        No course selected
+      </div>
+      
+      <div id='hole'>
+      </div>
+    </div>
+    
+    <ul class='holes navlist'></ul>
+  </div>
+  
+  
+  <script type="text/template" id="courselistitem-template">
+    <a href='javascript:void(0);' class='open-course'><%- name %></a>
+  </script>
+  
+  <script type="text/template" id="holelistitem-template">
+    <a href='javascript:void(0);' class='open-hole'><%- name %></a>
+  </script>
+  
+  <script type="text/template" id="coursedetail-template">
+    <div class='course'>
+      <h2><%- name %></h2>
+      <p><strong>Active Dates:</strong> <%- start_at %> to <%- end_at %></p>
+      <p class='description'><%- description %></p>
+    </div>
+  </script>
+  
+  <script type="text/template" id="holedetail-template">
+    <div class='hole'>
+      <h3><%- name %></h3>
+      <p>
+        <strong>Course:</strong> <%- course_id %>
+      </p>
+      <p>
+        <strong>Creator:</strong> <%- creator_id %>
+      </p>
+      <p>
+        <strong>Par:</strong> <%- par %>
+      </p>
+      <p>
+        <strong>Maximum Execution Time:</strong> <%- maximum_execution_time %>
+      </p>
+      <p>
+        <strong>Description:</strong> <%- description %>
+      </p>
+      <p>
+        <strong>Sample setup:</strong>
+        <pre class='prettyprint'><%- sample_test_case_setup %></pre>
+        
+        <strong>Sample solution:</strong>
+        <pre class='prettyprint'><%- sample_solution_code %></pre>
+        
+        <strong>Sample output:</strong>
+        <pre class='prettyprint'><%- sample_test_case_output %></pre>
+      </p>
+      <div class='solution'>
+        <div class='input'>
+          <strong>Your Solution:</strong>
+          <textarea class='prettyprint'></textarea>
+          <button class='submit'>Submit</button>
+        </div>
+        <p class='progress hide'>Submitting...</p>
+        <p class='output'></p>
+      </div>
+    </div>
+  </script>
+  
+  <script type="text/template" id="solution-template">
+    <p><%- display_output %></p>
+    <p>Your score: <%- score %></p>
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,129 @@
+body {
+  background: #eee;
+  font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+a {
+  color: #08c;
+  text-decoration: none;
+}
+p {
+  margin: 10px 0;
+}
+.hide {
+  display: none;
+}
+strong {
+  font-weight: bold;
+}
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+#head {
+  line-height: 74px;
+  position: fixed;
+  width: 100%;
+  background: #fff;
+  z-index: 30;
+  border-bottom: 1px #ccc solid;
+  box-shadow: 0 2px 2px -1px rgba(0,0,0,.1);
+}
+#head h1 {
+  font-size: 2em;
+  float: left;
+  padding-left: 15px;
+}
+#message {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin-left: -72px;
+  line-height: 25px;
+  padding: 0 40px;
+  color: #fff;
+  background: #8c0;
+  
+  z-index: 31;
+}
+#head ul.navlinks {
+  float: right;
+  padding-right: 15px;
+}
+#head ul.navlinks li {
+  display: inline-block;
+}
+#application {
+  position: absolute;
+  top: 75px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+.navlist {
+ background: #fff;
+ width: 20%;
+ position: fixed;
+ top: 75px;
+}
+.navlist li {
+}
+
+.navlist li a {
+  display: block;
+  line-height: 35px;
+  width: 100%;
+  color: #999;
+    padding-left:20px;
+}
+.navlist li a:hover {
+  background: #f8f8f8;
+}
+.navlist li.active a{
+  color: #08c;
+}
+ul.holes {
+  right: 0;
+}
+ul.courses {
+  left: 0;
+}
+#course {
+  background: #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: scroll;
+  right: 20%;
+  left: 20%;
+}
+#course .course {
+  margin: 1em;
+}
+#hole {
+  margin: 2em;
+}
+pre.prettyprint, textarea.prettyprint {
+  font-family: Monaco, Consolas, monospace;
+  margin: 10px 0;
+  display: block;
+  line-height: 1.5;
+  width: 500px;
+  padding: 1em;
+}
+textarea.prettyprint {
+  height: 150px;
+  margin-top: 15px;
+}
+pre.prettyprint {
+  border: 1px #888 solid;
+  background-color: #f8f8f8;
+  overflow: auto;
+}
+p.solution {
+  margin-top: 20px;
+}

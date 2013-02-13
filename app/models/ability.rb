@@ -11,6 +11,9 @@ class Ability
     else #guest
       can :read, Course
       can :read, Hole
+      can :read, Solution
+      can :read, TestCase
+      can :create, Solution
     end
   end
 end
