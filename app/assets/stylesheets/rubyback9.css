@@ -124,6 +124,20 @@ pre.prettyprint {
   background-color: #f8f8f8;
   overflow: auto;
 }
-p.solution {
+.solution {
   margin-top: 20px;
+}
+
+.response {
+  border: 1px #555 solid;
+  padding: 1em;
+  width: 500px;
+}
+
+.response.success {
+  background: #cfc;
+}
+
+.response.error {
+  background: #fcc;
 }

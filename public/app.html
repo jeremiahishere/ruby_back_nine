@@ -96,8 +96,10 @@
   </script>
   
   <script type="text/template" id="solution-template">
-    <p><%- display_output %></p>
-    <p>Your score: <%- score %></p>
+    <div class='response <%- success ? "success" : "error" %>'>
+      <p><%- display_output %></p>
+      <p>Your score: <%- score %></p>
+    </div>
   </script>
   
 </body>
