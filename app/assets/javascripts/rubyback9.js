@@ -134,7 +134,11 @@ $(function(){
     template: _.template($('#holedetail-template').html()),
     solution_template: _.template($('#solution-template').html()),
     events: {
-      "click .submit" : "submitSolution"
+      "click .submit": "submitSolution",
+      "keyup textarea": "updateScore"
+    },
+    updateScore: function() {
+      $('.score').html($('.solution .input textarea').val().replace(/\s+/g, '').length)
     },
     submitSolution: function() {
 
@@ -152,23 +156,24 @@ $(function(){
     },
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
-      $('#message').hide();
+      
       $('.solution .output').empty();
       var self = this;
       this.user_solutions.each(function(solution){
         $('.solution .output').prepend(self.solution_template(solution.toJSON()))
       });
-      
+      $('#message').hide();
       return this;
     },
     render_solutions: function() {
       var self = this;
-      $('#message').hide();
+      
       $('.solution .progress').hide();
       $('.solution .output').empty();
       this.user_solutions.each(function(solution){
         $('.solution .output').prepend(self.solution_template(solution.toJSON()))
       });
+      $('#message').hide();
     },
     remove: function() {
         this.undelegateEvents();

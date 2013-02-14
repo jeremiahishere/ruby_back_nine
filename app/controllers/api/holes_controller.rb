@@ -17,10 +17,14 @@ class API::HolesController < ApplicationController
     
     @sample_case = TestCase.where(:hole_id => params[:id], :sample => true)
     @sample_solution = Solution.where(:hole_id => params[:id], :sample => true)
+    @creator = User.find(@hole.creator_id)
+    @course = Course.find(@hole.course_id)
     
     @hole["sample_test_case_setup"] = @sample_case[0].setup
     @hole["sample_test_case_output"] = @sample_case[0].expected_output
     @hole["sample_solution_code"] = @sample_solution[0].code
+    @hole["creator"] = @creator
+    @hole["course"] = @course
     respond_with @hole
   end
 end

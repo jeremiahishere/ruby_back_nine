@@ -32,10 +32,10 @@
   <div class='hole'>
     <h3>{{ name }}</h3>
     <p>
-      <strong>Course:</strong> {{ course_id }}
+      <strong>Course:</strong> {{ course.name }}
     </p>
     <p>
-      <strong>Creator:</strong> {{ creator_id }}
+      <strong>Creator:</strong> {{ creator.email }}
     </p>
     <p>
       <strong>Par:</strong> {{ par }}
@@ -61,6 +61,7 @@
     
       <div class='input'>
         <strong>Your Solution:</strong>
+        <span class='score'>0</span> points
         <textarea class='prettyprint'></textarea>
         <button class='submit'>Submit</button>
       </div>

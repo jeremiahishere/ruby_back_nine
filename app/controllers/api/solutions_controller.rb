@@ -4,10 +4,14 @@ class API::SolutionsController < ApplicationController
   respond_to :json
   
   def index
-    if params[:hole_id]
-      respond_with @solutions = Solution.where(:user_id=>current_user.id, :hole_id=>params[:hole_id])
+    if user_signed_in?
+      if params[:hole_id]
+        respond_with @solutions = Solution.where(:user_id=>current_user.id, :hole_id=>params[:hole_id], :sample=>false)
+      else
+        respond_with @solutions = Solution.where(:user_id=>current_user.id, :sample=>false)
+      end
     else
-      respond_with @solutions = Solution.where(:user_id=>current_user.id)
+      respond_with nil
     end
   end
 
