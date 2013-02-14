@@ -4,7 +4,7 @@ class API::CoursesController < ApplicationController
   respond_to :json
   
   def index
-    respond_with @courses = Course.page(params[:page])
+    respond_with @courses = Course.active.page(params[:page])
   end
 
   def show
