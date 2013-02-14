@@ -1,43 +1,44 @@
-.backlinks
-  = link_to("Back to index", admin_holes_path(:course_id => @hole.course.id))
+.admin
+  .backlinks
+    = link_to("Back to index", admin_holes_path(:course_id => @hole.course.id))
 
-%h2=@hole.name
+  %h2=@hole.name
 
-.hole.info
-  = link_to"Edit Hole", edit_admin_hole_path(@hole)
-  %p
-    %strong Course:
-    = @hole.course.name
-  %p
-    %strong Creator:
-    = @hole.creator.name if @hole.creator.present?
-  %p
-    %strong Par:
-    = @hole.par
-  %p
-    %strong Maximum Execution Time:
-    =pluralize(@hole.maximum_execution_time, "second")    
-  %p
-    %strong Description:
-    = display_line_breaks(@hole.description)
+  .hole.info
+    = link_to"Edit Hole", edit_admin_hole_path(@hole)
+    %p
+      %strong Course:
+      = @hole.course.name
+    %p
+      %strong Creator:
+      = @hole.creator.name if @hole.creator.present?
+    %p
+      %strong Par:
+      = @hole.par
+    %p
+      %strong Maximum Execution Time:
+      =pluralize(@hole.maximum_execution_time, "second")    
+    %p
+      %strong Description:
+      = display_line_breaks(@hole.description)
 
-  %p
-    %strong Sample setup
-    %pre.prettyprint= display_line_breaks(@hole.sample_test_case.setup)
-    %pre.prettyprint= display_line_breaks(@hole.sample_solution.code)
-    %pre.prettyprint= display_line_breaks(@hole.sample_test_case.expected_output)
+    %p
+      %strong Sample setup
+      %pre.prettyprint= display_line_breaks(@hole.sample_test_case.setup)
+      %pre.prettyprint= display_line_breaks(@hole.sample_solution.code)
+      %pre.prettyprint= display_line_breaks(@hole.sample_test_case.expected_output)
 
-  %p
-    %b Test Cases:
-    %ul
-      - if @hole.test_cases.any?
-        - @hole.test_cases.each do |test_case|
-          %li
-            %p
-              %b Active: 
-              = display_yesno(test_case.active)
-            = "> " + display_line_breaks(test_case.setup)
-            %br
-            = "> " + display_line_breaks(@hole.sample_solution.code)
-            %br
-            = ">= " + display_line_breaks(test_case.expected_output)
+    %p
+      %b Test Cases:
+      %ul
+        - if @hole.test_cases.any?
+          - @hole.test_cases.each do |test_case|
+            %li
+              %p
+                %b Active: 
+                = display_yesno(test_case.active)
+              = "> " + display_line_breaks(test_case.setup)
+              %br
+              = "> " + display_line_breaks(@hole.sample_solution.code)
+              %br
+              = ">= " + display_line_breaks(test_case.expected_output)

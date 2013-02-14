@@ -1,0 +1,76 @@
+<div class='backbone'>
+  <ul class='courses navlist'></ul>
+  <div id='course'>
+    <div class='course'>
+      No course selected
+    </div>
+  
+    <div id='hole'>
+    </div>
+  </div>
+
+  <ul class='holes navlist'></ul>
+</div>
+  
+<script type="text/template" id="courselistitem-template">
+  <a href='javascript:void(0);' class='open-course'>{{ name }}</a>
+</script>
+
+<script type="text/template" id="holelistitem-template">
+  <a href='javascript:void(0);' class='open-hole'>{{ name }}</a>
+</script>
+
+<script type="text/template" id="coursedetail-template">
+  <div class='course'>
+    <h2>{{ name }}</h2>
+    <p><strong>Active Dates:</strong> {{ start_at }} to {{ end_at }}</p>
+    <p class='description'>{{ description }}</p>
+  </div>
+</script>
+
+<script type="text/template" id="holedetail-template">
+  <div class='hole'>
+    <h3>{{ name }}</h3>
+    <p>
+      <strong>Course:</strong> {{ course_id }}
+    </p>
+    <p>
+      <strong>Creator:</strong> {{ creator_id }}
+    </p>
+    <p>
+      <strong>Par:</strong> {{ par }}
+    </p>
+    <p>
+      <strong>Maximum Execution Time:</strong> {{ maximum_execution_time }}
+    </p>
+    <p>
+      <strong>Description:</strong> {{ description }}
+    </p>
+    <p>
+      <strong>Sample setup:</strong>
+      <pre class='prettyprint'>{{ sample_test_case_setup }}</pre>
+      
+      <strong>Sample solution:</strong>
+      <pre class='prettyprint'>{{ sample_solution_code }}</pre>
+      
+      <strong>Sample output:</strong>
+      <pre class='prettyprint'>{{ sample_test_case_output }}</pre>
+    </p>
+    <div class='solution'>
+      <div class='input'>
+        <strong>Your Solution:</strong>
+        <textarea class='prettyprint'></textarea>
+        <button class='submit'>Submit</button>
+      </div>
+      <p class='progress hide'>Submitting...</p>
+      <p class='output'></p>
+    </div>
+  </div>
+</script>
+
+<script type="text/template" id="solution-template">
+  <div class='response {{ success ? "success" : "error" }}'>
+    <p>{{ display_output }}</p>
+    <p>Your score: {{ score }}</p>
+  </div>
+</script>

@@ -4,8 +4,9 @@ $(function(){
   /* Models */
   var Solution = Backbone.Model.extend({
     url: function() {
-      return '/API' + (this.id? '/solutions/' +this.id : '/solutions')
-    }
+      return '/API' + (this.id ? '/solutions/' + this.id : '/solutions')
+    },
+
   });
   var Hole = Backbone.Model.extend({
     url : function() {
@@ -132,6 +133,7 @@ $(function(){
         $('.solution .output').html(this.solution_template(solution.toJSON()));
         $('.solution .progress').hide();
       });
+      console.log("save");
       solution.save();
     },
     render: function() {

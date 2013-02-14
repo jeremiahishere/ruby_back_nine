@@ -6,57 +6,24 @@
     =javascript_include_tag "application"
     =csrf_meta_tags
 %body
-  %header.head.box
-    %p.notice= notice
-    %p.alert= alert
-    %h1.header
-      =link_to('Ruby Back 9', root_path)
-    %p.links
+  #head
+    %h1=link_to('Ruby Back Nine', root_path)
+    %ul.navlinks
       -if user_signed_in?
-        = current_user.email
-        -if current_user.has_role? :admin
+        %li
+          =current_user.email
           |
+        %li
           =link_to('Admin', admin_courses_path)
-        |
-        =link_to('Logout', destroy_user_session_path, :method => :delete)
-
-        
+          |
+        %li
+          =link_to('Logout', destroy_user_session_path, :method => :delete)
       -else
-        =link_to('Register', new_user_registration_path)
-        |
-        =link_to('Login', new_user_session_path)
-
-  %section.content.box#rubygolf
+        %li
+          =link_to('Register', new_user_registration_path)
+          |
+        %li
+          =link_to('Login', new_user_session_path)
+    #message Loading...    
+  #application
     =yield
-    
-  #templates{:style=>'display:none'}
-    .course_detail
-      .course.info
-        %p
-          %strong Active Dates: {{start_at}} to {{end_at}}
-        %p {{description}}
-        %p
-          %strong Holes:
-          %ul.holes 
-    .course_list
-      .course
-        .head
-          .title
-            %span.name
-              %a.open{:href => "javascript:void(0);"} {{name}}
-          .dates
-            .end Closes on {{end_at}}
-          .clearfix
-        .description {{description}}
-    .hole_detail  
-      .hole.info
-        %p
-          %strong Creator: {{creator_id}}
-        %p
-          %strong Par: {{par}}
-        %p
-          %strong Maximum Execution Time: {{maximum_execution_time}}
-        %p
-          %strong Description: {{description}}
-        %p
-          %strong Sample Setup: {{sample_test_case_setup}}

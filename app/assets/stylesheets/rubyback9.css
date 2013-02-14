@@ -1,5 +1,5 @@
 body {
-  background: #eee;
+  background: #e0e0e0;
   font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
   font-size: 14px;
 }
@@ -57,6 +57,7 @@ h3 {
 #head ul.navlinks li {
   display: inline-block;
 }
+
 #application {
   position: absolute;
   top: 75px;
@@ -64,35 +65,33 @@ h3 {
   right: 0;
   left: 0;
 }
-.navlist {
- background: #fff;
+.backbone .navlist {
+ background: #fafafa;
  width: 20%;
  position: fixed;
  top: 75px;
 }
-.navlist li {
-}
 
-.navlist li a {
+.backbone .navlist li a {
   display: block;
   line-height: 35px;
   width: 100%;
   color: #999;
     padding-left:20px;
 }
-.navlist li a:hover {
-  background: #f8f8f8;
+.backbone .navlist li a:hover {
+  background: #f0f0f0;
 }
-.navlist li.active a{
+.backbone .navlist li.active a{
   color: #08c;
 }
-ul.holes {
+.backbone ul.holes {
   right: 0;
 }
-ul.courses {
+.backbone ul.courses {
   left: 0;
 }
-#course {
+.backbone #course {
   background: #fff;
   position: absolute;
   top: 0;
@@ -100,14 +99,16 @@ ul.courses {
   overflow: scroll;
   right: 20%;
   left: 20%;
+  z-index: 25;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }
-#course .course {
+.backbone #course .course {
   margin: 1em;
 }
-#hole {
+.backbone #hole {
   margin: 2em;
 }
-pre.prettyprint, textarea.prettyprint {
+.backbone pre.prettyprint, textarea.prettyprint {
   font-family: Monaco, Consolas, monospace;
   margin: 10px 0;
   display: block;
@@ -115,29 +116,29 @@ pre.prettyprint, textarea.prettyprint {
   width: 500px;
   padding: 1em;
 }
-textarea.prettyprint {
+.backbone textarea.prettyprint {
   height: 150px;
   margin-top: 15px;
 }
-pre.prettyprint {
+.backbone pre.prettyprint {
   border: 1px #888 solid;
   background-color: #f8f8f8;
   overflow: auto;
 }
-.solution {
+.backbone .solution {
   margin-top: 20px;
 }
 
-.response {
+.backbone .response {
   border: 1px #555 solid;
   padding: 1em;
   width: 500px;
 }
 
-.response.success {
+.backbone .response.success {
   background: #cfc;
 }
 
-.response.error {
+.backbone .response.error {
   background: #fcc;
 }

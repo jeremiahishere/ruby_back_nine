@@ -13,9 +13,9 @@ class API::SolutionsController < ApplicationController
   
   def create
     @solution = Solution.new(params[:solution]);
-    @solution["user_id"] = 1
+    @solution["user_id"] = current_user.id
     @solution.save
     @solution.check_solution
-    respond_with(@solution, :location => nil)    
+    respond_with(@solution, :location => nil)
   end
 end

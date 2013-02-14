@@ -6,14 +6,10 @@ class Ability
     if user.has_role? :admin
       can :manage, :all
     elsif user.has_role? :golfer
-      can :read, [Course, Hole, Solution]
+      can :read, [Course, Hole, Solution, TestCase]
       can :create, Solution
     else #guest
-      can :read, Course
-      can :read, Hole
-      can :read, Solution
-      can :read, TestCase
-      can :create, Solution
+      can :read, [Course, Hole, Solution, TestCase]
     end
   end
 end

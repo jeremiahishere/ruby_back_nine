@@ -8,4 +8,4 @@
 //= require jquery_ujs
 //= require _underscore-min
 //= require _backbone-min
-//= require home
+//= require rubyback9

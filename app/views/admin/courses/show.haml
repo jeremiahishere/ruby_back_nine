@@ -1,19 +1,20 @@
-.backlinks
-  = link_to("Back to index", admin_courses_path)
+.admin
+  .backlinks
+    = link_to("Back to index", admin_courses_path)
 
-%h2=@course.name
-.course.info
-  =link_to"Edit Course", edit_admin_course_path(@course)
+  %h2=@course.name
+  .course.info
+    =link_to"Edit Course", edit_admin_course_path(@course)
 
-  %p
-    %strong Active Dates:
-    = "#{display_datetime(@course.start_at)} to #{display_datetime(@course.end_at)}"
-  %p
-    %strong Description:
-    = display_line_breaks(@course.description)
-  %p
-    %strong Holes:
-    %ul.holes
-      - if @course.holes.any?
-        - @course.holes.each do |hole|
-          %li= link_to(hole.name, admin_hole_path(hole))
+    %p
+      %strong Active Dates:
+      = "#{display_datetime(@course.start_at)} to #{display_datetime(@course.end_at)}"
+    %p
+      %strong Description:
+      = display_line_breaks(@course.description)
+    %p
+      %strong Holes:
+      %ul.holes
+        - if @course.holes.any?
+          - @course.holes.each do |hole|
+            %li= link_to(hole.name, admin_hole_path(hole))
