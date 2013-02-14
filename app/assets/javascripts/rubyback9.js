@@ -1,14 +1,10 @@
 _.templateSettings.interpolate = /\{\{(.+?)\}\}/g //Nicer template tags
 $(function(){
-  var activeHole;
-  var holeDetail;
-  
   /* Models */
   var Solution = Backbone.Model.extend({
     url: function() {
       return '/API' + (this.id ? '/solutions/' + this.id : '/solutions')
-    },
-
+    }
   });
   var Hole = Backbone.Model.extend({
     url : function() {
@@ -30,8 +26,7 @@ $(function(){
     url: function() {
       return '/API/solutions?hole_id='+this.hole_id;
     }
-  })
-  
+  });
   var HoleList = Backbone.Collection.extend({
     model: Hole,
     initialize: function(models, options){
@@ -77,13 +72,15 @@ $(function(){
     el: $('#course .course'),
     template: _.template($('#coursedetail-template').html()),
     render: function() {
-      
+      //Clear up all the views before we render the course detail
       $('#hole').empty();
       $('#course .course').empty();
       $('ul.holes').empty();
       
+      //Render the course detail from the template
       this.$el.html(this.template(this.model.toJSON()));
       
+      //Render all the holes on the right-hand navigation
       this.holes.each(function(hole){
         var holeListItem = new HoleListItemView({model: hole});
         $('ul.holes').append(holeListItem.render().el);
@@ -95,9 +92,12 @@ $(function(){
     initialize: function() {
       this.holes = new HoleList({}, {course_id: this.model.get('id')});
       
+      //Re-render when the holes collection or the course changes
       this.listenTo(this.model, 'change', this.render);
       this.listenTo(this.holes, 'reset', this.render)
       $('#message').show();
+      
+      //Fetch the holes collection for this course
       this.holes.fetch();
     }
   });
@@ -109,8 +109,8 @@ $(function(){
       "click .open-hole" : "open"
     },
     open: function() {
-      if(holeDetail)
-      {
+      if(holeDetail) {
+        //Drop the hole event handlers before we re-render the hole view
         holeDetail.remove()
       }
       activeHole = new Hole({id: this.model.get('id')});
@@ -126,6 +126,7 @@ $(function(){
       return this;
     },
     initialize: function() {
+      //Re-render on model change
       this.listenTo(this.model, 'change', this.render)
     }
   });
@@ -138,20 +139,22 @@ $(function(){
       "keyup textarea": "updateScore"
     },
     updateScore: function() {
+      //Update the score count while the user types
       $('.score').html($('.solution .input textarea').val().replace(/\s+/g, '').length)
     },
     submitSolution: function() {
-
       $('.solution .progress').show();
       
+      //Create a new solution from the user's code
       var solution = new Solution({
         code: $('.solution .input textarea').val(),
         hole_id: this.model.get('id')
       });
+      
+      //Add the solution to the list when the server responds
       this.listenTo(solution, 'change', function(solution){
         this.user_solutions.add(solution);
       });
-      console.log(solution.get('hole_id'));
       solution.save();
     },
     render: function() {
@@ -160,6 +163,7 @@ $(function(){
       $('.solution .output').empty();
       var self = this;
       this.user_solutions.each(function(solution){
+        //Add solutions in reverse order so that newest is first
         $('.solution .output').prepend(self.solution_template(solution.toJSON()))
       });
       $('#message').hide();
@@ -183,8 +187,10 @@ $(function(){
     initialize: function() {
       this.user_solutions = new SolutionList({}, {hole_id: this.model.get('id')});
       
+      //Re-render hole if model changes
       this.listenTo(this.model, 'change', this.render);
       
+      //Re-render solutions if user_solutions changes
       this.listenTo(this.user_solutions, 'reset', this.render_solutions);
       this.listenTo(this.user_solutions, 'add', this.render_solutions);
       
@@ -207,5 +213,8 @@ $(function(){
     }
   })
   
+  var activeHole, holeDetail;
+  
+  //Start the app
   var app = new AppView;
 });

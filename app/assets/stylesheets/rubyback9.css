@@ -127,6 +127,18 @@ h3 {
 }
 .backbone .solution {
   margin-top: 20px;
+  width: 525px;
+}
+
+.solution .input {
+  margin-bottom: 50px;
+}
+
+button.submit {
+  display: block;
+  margin-right: 0;
+  margin-left: auto;
+  padding: 5px 20px;
 }
 
 .backbone .response {
@@ -143,10 +155,6 @@ h3 {
 .backbone .response.error {
   background: #fcc;
 }
-
-
-/* ************************** */
-
 
 .admin {
   background: #fff;
