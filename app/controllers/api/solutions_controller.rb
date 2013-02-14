@@ -4,11 +4,15 @@ class API::SolutionsController < ApplicationController
   respond_to :json
   
   def index
-    respond_with @courses = Course.page(params[:page])
+    if params[:hole_id]
+      respond_with @solutions = Solution.where(:user_id=>current_user.id, :hole_id=>params[:hole_id])
+    else
+      respond_with @solutions = Solution.where(:user_id=>current_user.id)
+    end
   end
 
   def show
-    respond_with @course = Course.find(params[:id])
+    respond_with @solution = Solution.find(params[:id])
   end
   
   def create

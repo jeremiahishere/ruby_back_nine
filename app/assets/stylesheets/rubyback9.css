@@ -47,7 +47,7 @@ h3 {
   padding: 0 40px;
   color: #fff;
   background: #8c0;
-  
+  display: none;
   z-index: 31;
 }
 #head ul.navlinks {
@@ -131,8 +131,9 @@ h3 {
 
 .backbone .response {
   border: 1px #555 solid;
-  padding: 1em;
+  padding: 0 10px;
   width: 500px;
+  margin-top: 10px;
 }
 
 .backbone .response.success {
@@ -142,3 +143,85 @@ h3 {
 .backbone .response.error {
   background: #fcc;
 }
+
+
+/* ************************** */
+
+
+.admin {
+  background: #fff;
+  width: 800px;
+  margin: 0 auto;
+  padding: 25px;
+}
+
+.admin h1 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+.content {
+  margin-top: 0;
+  padding-top: 0;
+}
+.content h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.courses .course .head {
+  margin-bottom: 15px;
+  font-size: 1.25em;
+  line-height: 20px;
+}
+.courses .course .title {
+  float: left;
+}
+.courses .course .dates {
+  float:right;
+  font-size: .8em;
+  color: #999;
+}
+
+li.input {
+  padding: 10px;
+  clear: both;
+  overflow: auto;
+}
+li.input input {
+  float: left;
+}
+li.input textarea {
+  width: 400px;
+  height: 100px;
+}
+li.input label {
+  float: left;
+  font-weight: bold;
+  width: 15em;
+}
+
+
+table {
+  margin-top: 20px;
+}
+table td, table th {
+  padding: 3px;
+}
+table td.name {
+ width: 11em;
+}
+table th {
+  font-weight: bold;
+  text-align: left;
+}
+table tr {
+  border-bottom: 1px #aaa solid;
+}
+table tr:nth-child(2n) {
+  background: #f0f0f0;
+}
+td.button {
+  vertical-align: middle;
+}
+

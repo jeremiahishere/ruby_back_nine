@@ -1,5 +1,7 @@
 _.templateSettings.interpolate = /\{\{(.+?)\}\}/g //Nicer template tags
 $(function(){
+  var activeHole;
+  var holeDetail;
   
   /* Models */
   var Solution = Backbone.Model.extend({
@@ -20,6 +22,16 @@ $(function(){
   });
   
   /* Collections */
+  var SolutionList = Backbone.Collection.extend({
+    model: Solution,
+    initialize: function(models, options){
+      this.hole_id = options.hole_id;
+    },
+    url: function() {
+      return '/API/solutions?hole_id='+this.hole_id;
+    }
+  })
+  
   var HoleList = Backbone.Collection.extend({
     model: Hole,
     initialize: function(models, options){
@@ -97,8 +109,12 @@ $(function(){
       "click .open-hole" : "open"
     },
     open: function() {
-      var activeHole = new Hole({id: this.model.get('id')});
-      var holeDetail = new HoleDetailView({model: activeHole});
+      if(holeDetail)
+      {
+        holeDetail.remove()
+      }
+      activeHole = new Hole({id: this.model.get('id')});
+      holeDetail = new HoleDetailView({model: activeHole});
       $('#message').show();
       activeHole.fetch();
       $('li.hole').removeClass('active');
@@ -121,28 +137,53 @@ $(function(){
       "click .submit" : "submitSolution"
     },
     submitSolution: function() {
-      $('.solution .input').hide();
+
       $('.solution .progress').show();
       
       var solution = new Solution({
         code: $('.solution .input textarea').val(),
         hole_id: this.model.get('id')
       });
-      
       this.listenTo(solution, 'change', function(solution){
-        $('.solution .output').html(this.solution_template(solution.toJSON()));
-        $('.solution .progress').hide();
+        this.user_solutions.add(solution);
       });
-      console.log("save");
+      console.log(solution.get('hole_id'));
       solution.save();
     },
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
       $('#message').hide();
+      $('.solution .output').empty();
+      var self = this;
+      this.user_solutions.each(function(solution){
+        $('.solution .output').prepend(self.solution_template(solution.toJSON()))
+      });
+      
       return this;
     },
+    render_solutions: function() {
+      var self = this;
+      $('#message').hide();
+      $('.solution .progress').hide();
+      $('.solution .output').empty();
+      this.user_solutions.each(function(solution){
+        $('.solution .output').prepend(self.solution_template(solution.toJSON()))
+      });
+    },
+    remove: function() {
+        this.undelegateEvents();
+        this.$el.empty();
+        return this;
+    },
     initialize: function() {
-      this.listenTo(this.model, 'change', this.render)
+      this.user_solutions = new SolutionList({}, {hole_id: this.model.get('id')});
+      
+      this.listenTo(this.model, 'change', this.render);
+      
+      this.listenTo(this.user_solutions, 'reset', this.render_solutions);
+      this.listenTo(this.user_solutions, 'add', this.render_solutions);
+      
+      this.user_solutions.fetch();
     }
   });
   var AppView = Backbone.View.extend({

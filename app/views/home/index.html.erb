@@ -57,6 +57,8 @@
       <pre class='prettyprint'>{{ sample_test_case_output }}</pre>
     </p>
     <div class='solution'>
+    <% if user_signed_in? %>
+    
       <div class='input'>
         <strong>Your Solution:</strong>
         <textarea class='prettyprint'></textarea>
@@ -64,12 +66,16 @@
       </div>
       <p class='progress hide'>Submitting...</p>
       <p class='output'></p>
+    <% else %>
+      <p><%= link_to("Sign in", new_user_session_path) %> to submit a solution.</p>
+    <% end %>
     </div>
   </div>
 </script>
 
 <script type="text/template" id="solution-template">
   <div class='response {{ success ? "success" : "error" }}'>
+    <p>{{ code }}</p>
     <p>{{ display_output }}</p>
     <p>Your score: {{ score }}</p>
   </div>
