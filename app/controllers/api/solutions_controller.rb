@@ -6,7 +6,15 @@ class API::SolutionsController < ApplicationController
   def index
     if user_signed_in?
       if params[:hole_id]
-        respond_with @solutions = Solution.where(:user_id=>current_user.id, :hole_id=>params[:hole_id], :sample=>false)
+        #The user's top successful solution -- to list on the Hole Detail view
+        @solutions =  Solution.where(
+          :user_id=>current_user.id,
+          :hole_id=>params[:hole_id],
+          :sample=>false,
+          :success=>true
+        ).order(:score).limit(1)
+        
+        respond_with @solutions
       else
         respond_with @solutions = Solution.where(:user_id=>current_user.id, :sample=>false)
       end

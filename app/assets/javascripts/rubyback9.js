@@ -1,4 +1,7 @@
-_.templateSettings.interpolate = /\{\{(.+?)\}\}/g //Nicer template tags
+_.templateSettings = {
+    interpolate: /\[\%\=(.+?)\%\]/g,
+    evaluate: /\[\%(.+?)\%\]/g
+};
 $(function(){
   /* Models */
   var Solution = Backbone.Model.extend({
@@ -159,7 +162,6 @@ $(function(){
     },
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
-      
       $('.solution .output').empty();
       var self = this;
       this.user_solutions.each(function(solution){
@@ -185,6 +187,7 @@ $(function(){
         return this;
     },
     initialize: function() {
+      //The user's solutions to this hole
       this.user_solutions = new SolutionList({}, {hole_id: this.model.get('id')});
       
       //Re-render hole if model changes

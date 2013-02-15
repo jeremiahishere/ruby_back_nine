@@ -125,6 +125,13 @@ h3 {
   background-color: #f8f8f8;
   overflow: auto;
 }
+
+.backbone .top-scores {
+  margin-left: 35px;
+  list-style-type: disc;
+  margin-bottom: 25px;
+}
+
 .backbone .solution {
   margin-top: 20px;
   width: 525px;

@@ -2,7 +2,15 @@
   <ul class='courses navlist'></ul>
   <div id='course'>
     <div class='course'>
-      No course selected
+      <p>
+        Welcome to RubyBack9, start by selecting a course on the left, then you can choose from one
+        of the course's holes by selecting it from the list on the right.
+      </p>
+      <p>
+        When you find a hole that you'd like to attempt, fill in your answer on the textbox at the
+        bottom of the hole page and hit submit. We'll attempt to run your solution and give you some
+        feedback.
+      </p>
     </div>
   
     <div id='hole'>
@@ -13,48 +21,56 @@
 </div>
   
 <script type="text/template" id="courselistitem-template">
-  <a href='javascript:void(0);' class='open-course'>{{ name }}</a>
+  <a href='javascript:void(0);' class='open-course'>[%= name %]</a>
 </script>
 
 <script type="text/template" id="holelistitem-template">
-  <a href='javascript:void(0);' class='open-hole'>{{ name }}</a>
+  <a href='javascript:void(0);' class='open-hole'>[%= name %]</a>
 </script>
 
 <script type="text/template" id="coursedetail-template">
   <div class='course'>
-    <h2>{{ name }}</h2>
-    <p><strong>Active Dates:</strong> {{ start_at }} to {{ end_at }}</p>
-    <p class='description'>{{ description }}</p>
+    <h2>[%=name%]</h2>
+    <p><strong>Active Dates:</strong> [%= start_at %] to [%= end_at %]</p>
+    <p class='description'>[%= description %]</p>
   </div>
 </script>
 
 <script type="text/template" id="holedetail-template">
   <div class='hole'>
-    <h3>{{ name }}</h3>
+    <h3>[%= name %]</h3>
     <p>
-      <strong>Course:</strong> {{ course.name }}
+      <strong>Course:</strong> [%= course.name %]
     </p>
     <p>
-      <strong>Creator:</strong> {{ creator.email }}
+      <strong>Creator:</strong> [%= creator.email %]
     </p>
     <p>
-      <strong>Par:</strong> {{ par }}
+      <strong>Par:</strong> [%= par %]
     </p>
     <p>
-      <strong>Maximum Execution Time:</strong> {{ maximum_execution_time }}
+      <strong>Maximum Execution Time:</strong> [%= maximum_execution_time %]
     </p>
     <p>
-      <strong>Description:</strong> {{ description }}
+      <strong>Top Scores:</strong>
+      <ul class='top-scores'>
+        [% for(var i = 0; i < top_scores.length; i++){ %]
+          <li>[%= top_scores[i].user.email %]: [%= top_scores[i].score %] </li>
+        [% } %]
+      </ul>
+    </p>
+    <p>
+      <strong>Description:</strong> [%= description %]
     </p>
     <p>
       <strong>Sample setup:</strong>
-      <pre class='prettyprint'>{{ sample_test_case_setup }}</pre>
+      <pre class='prettyprint'>[%= sample_test_case_setup %]</pre>
       
       <strong>Sample solution:</strong>
-      <pre class='prettyprint'>{{ sample_solution_code }}</pre>
+      <pre class='prettyprint'>[%= sample_solution_code %]</pre>
       
       <strong>Sample output:</strong>
-      <pre class='prettyprint'>{{ sample_test_case_output }}</pre>
+      <pre class='prettyprint'>[%= sample_test_case_output %]</pre>
     </p>
     <div class='solution'>
     <% if user_signed_in? %>
@@ -75,9 +91,9 @@
 </script>
 
 <script type="text/template" id="solution-template">
-  <div class='response {{ success ? "success" : "error" }}'>
-    <p>{{ code }}</p>
-    <p>{{ display_output }}</p>
-    <p>Your score: {{ score }}</p>
+  <div class='response [%= success ? "success" : "error" %]'>
+    <p>[%= code %]</p>
+    <p>[%= display_output %]</p>
+    <p>Your score: [%= score %]</p>
   </div>
 </script>
