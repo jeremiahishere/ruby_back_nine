@@ -19,7 +19,7 @@
       Sample Solution
       = form.inputs :for => :solutions do |sol_form|
         = sol_form.input :user_id, :as => :hidden , :value => current_user.id
-        = sol_form.input :sample, :as => :hidden, :value => true
+        = sol_form.input :sample, :as => :boolean
         = sol_form.input :submitted_at, :as => :hidden, :value => Time.now
         = sol_form.input :code, :as => :text
 

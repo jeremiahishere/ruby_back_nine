@@ -12,6 +12,7 @@ class API::HolesController < ApplicationController
     end
   end
 
+  #setup all necessary information for the hole detail view
   def show
     @hole = Hole.find(params[:id])
     
@@ -20,7 +21,11 @@ class API::HolesController < ApplicationController
     @creator = User.find(@hole.creator_id)
     @course = Course.find(@hole.course_id)
     
-    @top_scores = Solution.select("user_id, MIN(score) as `score`").where(:hole_id=>@hole.id, :success=>true).group(:user_id).order(:score).limit(5)
+    @top_scores = Solution.select("user_id, MIN(score) as `score`")
+      .where(:hole_id=>@hole.id, :success=>true)
+      .group(:user_id)
+      .order(:score)
+      .limit(5)
     @top_scores.each_with_index do |score, index|
       @top_user = User.find(score.user_id)
       @top_scores[index]["user"] = @top_user
