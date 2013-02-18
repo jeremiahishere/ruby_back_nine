@@ -13,6 +13,9 @@ p {
 .hide {
   display: none;
 }
+.show {
+  display: block !important;
+}
 strong {
   font-weight: bold;
 }
@@ -47,8 +50,8 @@ h3 {
   padding: 0 40px;
   color: #fff;
   background: #8c0;
-  display: none;
   z-index: 31;
+  display: none;
 }
 #head ul.navlinks {
   float: right;
@@ -57,7 +60,6 @@ h3 {
 #head ul.navlinks li {
   display: inline-block;
 }
-
 #application {
   position: absolute;
   top: 75px;
@@ -71,7 +73,6 @@ h3 {
  position: fixed;
  top: 75px;
 }
-
 .backbone .navlist li a {
   display: block;
   line-height: 35px;
@@ -97,7 +98,7 @@ h3 {
   top: 0;
   bottom: 0;
   overflow: scroll;
-  right: 20%;
+  right: 0;
   left: 20%;
   z-index: 25;
   box-shadow: 0 0 10px rgba(0, 0, 0, .2);
@@ -125,56 +126,46 @@ h3 {
   background-color: #f8f8f8;
   overflow: auto;
 }
-
 .backbone .top-scores {
   margin-left: 35px;
-  list-style-type: disc;
+  list-style-type: decimal;
   margin-bottom: 25px;
 }
-
 .backbone .solution {
   margin-top: 20px;
   width: 525px;
 }
-
 .solution .input {
   margin-bottom: 50px;
 }
-
 button.submit {
   display: block;
   margin-right: 0;
   margin-left: auto;
   padding: 5px 20px;
 }
-
 .backbone .response {
   border: 1px #555 solid;
   padding: 0 10px;
   width: 500px;
   margin-top: 10px;
 }
-
 .backbone .response.success {
   background: #cfc;
 }
-
 .backbone .response.error {
   background: #fcc;
 }
-
 .admin {
   background: #fff;
   width: 800px;
   margin: 0 auto;
   padding: 25px;
 }
-
 .admin h1 {
   font-size: 1.5em;
   margin-bottom: 15px;
 }
-
 .content {
   margin-top: 0;
   padding-top: 0;
@@ -183,7 +174,6 @@ button.submit {
   font-size: 1.5em;
   font-weight: bold;
 }
-
 .courses .course .head {
   margin-bottom: 15px;
   font-size: 1.25em;
@@ -197,7 +187,6 @@ button.submit {
   font-size: .8em;
   color: #999;
 }
-
 li.input {
   padding: 10px;
   clear: both;
@@ -215,8 +204,6 @@ li.input label {
   font-weight: bold;
   width: 15em;
 }
-
-
 table {
   margin-top: 20px;
 }
@@ -239,4 +226,3 @@ table tr:nth-child(2n) {
 td.button {
   vertical-align: middle;
 }
-

@@ -13,8 +13,6 @@ RubyBackNine::Application.routes.draw do
     resources :courses, :holes, :solutions, :test_cases
     root :to => "home#index"
   end
-  
-  resources :courses, :holes
 
   root :to => "home#index"
 end

@@ -21,6 +21,8 @@ $(function(){
   });
   
   /* Collections */
+  
+  //Simple solution collection
   var SolutionList = Backbone.Collection.extend({
     model: Solution,
     initialize: function(models, options){
@@ -30,6 +32,8 @@ $(function(){
       return '/API/solutions?hole_id='+this.hole_id;
     }
   });
+  
+  //Simple hole collection
   var HoleList = Backbone.Collection.extend({
     model: Hole,
     initialize: function(models, options){
@@ -39,6 +43,8 @@ $(function(){
       return '/API/holes?course_id='+this.course_id; 
     }
   });
+  
+  //Simple course collection
   var CourseList = Backbone.Collection.extend({
     model: Course,
     url: function() {
@@ -47,6 +53,8 @@ $(function(){
   });
   
   /* Views */
+  
+  //We use this view to display the list of available courses
   var CourseListItemView = Backbone.View.extend({
     tagName: 'li',
     className: 'course',
@@ -69,8 +77,15 @@ $(function(){
     },
     initialize: function() {
       this.listenTo(this.model, 'change', this.render)
-    }
+    },
+    remove: function() {
+      this.undelegateEvents();
+      this.$el.empty();
+      return this;
+    },
   });
+  
+  //We use this view to display the main course view
   var CourseDetailView = Backbone.View.extend({
     el: $('#course .course'),
     template: _.template($('#coursedetail-template').html()),
@@ -102,8 +117,15 @@ $(function(){
       
       //Fetch the holes collection for this course
       this.holes.fetch();
-    }
+    },
+    remove: function() {
+      this.undelegateEvents();
+      this.$el.empty();
+      return this;
+    },
   });
+  
+  //We use this view to display the list of holes per course
   var HoleListItemView = Backbone.View.extend({
     tagName: "li",
     className: "hole",
@@ -131,8 +153,15 @@ $(function(){
     initialize: function() {
       //Re-render on model change
       this.listenTo(this.model, 'change', this.render)
-    }
+    },
+    remove: function() {
+      this.undelegateEvents();
+      this.$el.empty();
+      return this;
+    },
   });
+  
+  //The view we use for the main hole detail display
   var HoleDetailView = Backbone.View.extend({
     el: $('#hole'),
     template: _.template($('#holedetail-template').html()),
@@ -173,7 +202,6 @@ $(function(){
     },
     render_solutions: function() {
       var self = this;
-      
       $('.solution .progress').hide();
       $('.solution .output').empty();
       this.user_solutions.each(function(solution){
@@ -203,13 +231,14 @@ $(function(){
   var AppView = Backbone.View.extend({
     el: $('#application'),
     initialize: function() {
-      var courses = new CourseList;
-      this.listenTo(courses, 'reset', this.start);
+      this.courses = new CourseList;
+      this.listenTo(this.courses, 'reset', this.start);
       $('#message').show();
-      courses.fetch();
+      this.courses.fetch();
     },
-    start: function(courses) {
-      courses.each(function(course){
+    start: function() {
+      $('ul.courses').empty();
+      this.courses.each(function(course){
         var courseListItem = new CourseListItemView({model: course});
         $('ul.courses').append(courseListItem.render().el);
       }, this);
@@ -217,7 +246,6 @@ $(function(){
   })
   
   var activeHole, holeDetail;
-  
   //Start the app
   var app = new AppView;
 });

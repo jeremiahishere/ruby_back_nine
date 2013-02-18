@@ -4,7 +4,7 @@
     <div class='course'>
       <p>
         Welcome to RubyBack9, start by selecting a course on the left, then you can choose from one
-        of the course's holes by selecting it from the list on the right.
+        of the course's holes by selecting it from the list below.
       </p>
       <p>
         When you find a hole that you'd like to attempt, fill in your answer on the textbox at the
@@ -12,14 +12,11 @@
         feedback.
       </p>
     </div>
-  
     <div id='hole'>
     </div>
   </div>
-
-  <ul class='holes navlist'></ul>
 </div>
-  
+
 <script type="text/template" id="courselistitem-template">
   <a href='#/course/[%= id %]' class='open-course'>[%= name %]</a>
 </script>
@@ -33,6 +30,7 @@
     <h2>[%=name%]</h2>
     <p><strong>Active Dates:</strong> [%= start_at %] to [%= end_at %]</p>
     <p class='description'>[%= description %]</p>
+    <ul class='holes'></ul>
   </div>
 </script>
 
@@ -53,11 +51,11 @@
     </p>
     <p>
       <strong>Top Scores:</strong>
-      <ul class='top-scores'>
+      <ol class='top-scores'>
         [% for(var i = 0; i < top_scores.length; i++){ %]
           <li>[%= top_scores[i].user.email %]: [%= top_scores[i].score %] </li>
         [% } %]
-      </ul>
+      </ol>
     </p>
     <p>
       <strong>Description:</strong> [%= description %]
