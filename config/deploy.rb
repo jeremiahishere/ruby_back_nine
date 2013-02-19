@@ -122,22 +122,9 @@ task :refresh_sitemap, :roles => :app do
   run "cd #{current_release} && rake RAILS_ENV=#{rails_env} sitemap:refresh:no_ping"
 end
 
-
-after "deploy:symlink", "refresh_sitemap"
-after "deploy:rollback:revision", "bundler:install"
-after "deploy:update_code", "bundler:bundle_new_release"
-after "deploy:update_code", "deploy:db:migrate"
-after "deploy:update_code", "deploy:db:seed"
-after "deploy", "deploy:cleanup"
-# after "deploy:stop",    "delayed_job:stop"
-# after "deploy:start",   "delayed_job:start"
-after "deploy:restart", "delayed_job:restart"
 after "deploy:stop",    "call_it_out_stop"
 after "deploy:start",    "call_it_out_start"
-after 'deploy:setup' do
-  reset_permissions 
-end
+
 after :deploy do
-  reset_permissions
   call_it_out
 end
