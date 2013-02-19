@@ -44,3 +44,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda'
 end
+
+#deployment
+group :production, :staging do
+  gem 'unicorn'
+end
