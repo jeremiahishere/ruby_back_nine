@@ -13,7 +13,7 @@ timeout 30
 # We will point the upstream Nginx module to this socket later on
 listen "/var/rails/rubyback9/tmp/sockets/unicorn.sock", :backlog => 64
 
-pid "var/run/rubyback9.com_unicorn.pid"
+pid "/var/run/rubyback9.com_unicorn.pid"
 
 # Set the path of the log files inside the log folder of the testapp
 stderr_path "/srv/ruby_back_nine/log/unicorn.stderr.log"
